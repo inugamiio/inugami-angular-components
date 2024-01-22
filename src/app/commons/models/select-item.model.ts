@@ -22,3 +22,8 @@ export interface TimeBucket<T>{
     styleClass?:string;
     items?:SelectItemModel<T>[];
 }
+
+export interface BoundedValue<F,S>{
+    first?:F;
+    second?:S;
+}

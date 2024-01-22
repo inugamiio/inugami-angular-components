@@ -9,7 +9,7 @@ export interface TransformationInfo{
 export interface Dimension{
     height: number;
     width: number;
-    font?: number|null;
+    font: number;
 }
 
 export interface Position{
@@ -19,14 +19,14 @@ export interface Position{
 }
 
 export interface Size{
-    height?: number|null;
-    width?: number|null;
-    bottom?: number|null;
-    left?: number|null;
-    right?: number|null;
-    top?: number|null;
-    x?: number|null;
-    y?: number|null;
+    height: number;
+    width: number;
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+    x: number;
+    y: number;
     fontratio?: number|null;
 }
 
@@ -38,4 +38,9 @@ export interface Point{
 export interface Vector{
     start: Point;
     end: Point;
+}
+
+export interface SvgStyle{
+    style?: string;
+    styleclass?: string;
 }

@@ -8,6 +8,7 @@ import { InugamiComponentsModule } from './components/inugami-components.module'
 import { InugamiViewsModule } from './views/inugami-views.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
 
     // --- modules 
     InugamiCommonsModule,

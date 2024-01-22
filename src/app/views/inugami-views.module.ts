@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
 import { InugamiCommonsModule } from '../commons/inugami-commons.module';
@@ -20,6 +21,7 @@ import { TimelinePage } from './timeline/timeline.page';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
 
     //-----------------------
     InugamiCommonsModule,

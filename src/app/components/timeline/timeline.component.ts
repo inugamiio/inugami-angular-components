@@ -7,9 +7,13 @@ import { Component,
     ElementRef,
     AfterViewInit,
     HostListener} from '@angular/core';
-import { TimeBucket } from 'src/app/commons/models/select-item.model';
-import { SVG_BUILDER, SVG_MATH } from 'src/app/commons/utils/svg.utils';
-import { TimelineLoader } from './timeline.model';
+import { Observable, of } from 'rxjs';
+import { BoundedValue, TimeBucket } from 'src/app/commons/models/select-item.model';
+import { SvgTimerGenerator } from 'src/app/commons/models/svg-options.model';
+import { SvgStyleGenerator } from 'src/app/commons/models/svg-service.model';
+import { SVG, SVG_ANIMATION, SVG_BUILDER, SVG_MATH } from 'src/app/commons/utils/svg.utils';
+import { TimelineData, TimelineLoader, TimeLineValueNodes } from './timeline.model';
+import { TIMELINE_GRAPH_RENDERING } from './timeline.utils';
 
 
 const DAY = 60000 * 60 * 24;
@@ -36,10 +40,20 @@ export class TimelineComponent implements AfterViewInit{
     @Input()
     public until: Date |null =null;
     @Input()
-    public resolution: number =300;
+    public resolution: number =100;
     @Input()
-    public loader: (from:Date, until:Date, resolution:number)=>TimeBucket<number>[]  = (from, until, resolution)=> []; 
-  
+    public loader: (from:Date, until:Date, resolution:number)=>Observable<TimeBucket<number>[]>  = (from, until, resolution)=> of([]); 
+    @Input()
+    public renderer: (data:TimelineData)=>TimeLineValueNodes[] = TIMELINE_GRAPH_RENDERING.histogram;
+    @Input()
+    public styleGenerator:SvgStyleGenerator= SVG.STYLE.BY_TYPE;
+    @Input()
+    public timer: SvgTimerGenerator |null = null;
+    @Input()
+    public delay: number=0;
+    @Input()
+    public duration: number=750;
+
     @Output()
     public onChange : EventEmitter<String> = new EventEmitter();
 
@@ -53,6 +67,7 @@ export class TimelineComponent implements AfterViewInit{
     private data : TimeBucket<number>[] = [];
     private leftBuffer : TimeBucket<number>[] = [];
     private rightBuffer : TimeBucket<number>[] = [];
+    private graphNodes : TimeLineValueNodes[] = [];
 
     //--- SVG components
     private locator : SVGElement|null=null;
@@ -69,9 +84,9 @@ export class TimelineComponent implements AfterViewInit{
     //--- size
     public height : number = 600;
     public width : number = 200;
-    private axisYMargin: number = 50;
+    private leftMargin: number = 50;
     private rightMargin: number = 20;
-    private axisXMargin: number = 30;
+    private bottomMargin: number = 30;
     private topMargin: number = 20;
 
     
@@ -88,17 +103,19 @@ export class TimelineComponent implements AfterViewInit{
     ngAfterViewInit(): void {
         if(this.component && this.container){
             this.resolveParentSize();
-            this.initializeDateRange();
-            this.initializeLayout();
             
+            this.initializeLayout();
+            this.initializeDateRange();
             if(this.from && this.until){
                 this.loadData(this.from,this.until, this.resolution);
             }
+            
             this.resize();
         }
     }
 
     private initializeDateRange():void{
+        console.log("initializeDateRange");
         if(this.until ==null){
             this.until = new Date();
         }
@@ -115,6 +132,11 @@ export class TimelineComponent implements AfterViewInit{
         
         if(this.canvas){
             this.graph = SVG_BUILDER.createGroup(this.canvas, {styleClass:'graph'});
+            if(this.graph){
+                SVG.TRANSFORM.translateX(this.graph,this.leftMargin);
+                SVG.TRANSFORM.translateY(this.graph,this.height-this.bottomMargin);
+            }
+            
             this.axis = this.renderAxis(this.canvas);
             this.legend = this.renderLegend(this.canvas);
             this.actions = this.renderActions(this.canvas);
@@ -125,15 +147,15 @@ export class TimelineComponent implements AfterViewInit{
     /**************************************************************************
     * ACTIONS
     **************************************************************************/ 
-     private renderAxis(parent:SVGElement):SVGElement{
+     private renderAxis(parent:SVGElement):SVGElement|null{
         const result = SVG_BUILDER.createGroup(this.canvas, {styleClass:'axis'});
         
         this.axisX = SVG_BUILDER.createGroup(result, {styleClass:'axisX'});
         if(this.axisX){
             
             SVG_BUILDER.createLine({
-                start:{x:this.axisYMargin, y:this.height-this.axisXMargin},
-                end:{x:this.width-this.rightMargin, y: (this.height-this.axisXMargin)}
+                start:{x:this.leftMargin, y:this.height-this.bottomMargin},
+                end:{x:this.width-this.rightMargin, y: (this.height-this.bottomMargin)}
             },
             this.axisX);
         }
@@ -141,8 +163,8 @@ export class TimelineComponent implements AfterViewInit{
         this.axisY = SVG_BUILDER.createGroup(result, {styleClass:'axisY'});
         if(this.axisY){
             SVG_BUILDER.createLine({
-                start:{x:this.axisYMargin, y:this.height-this.axisXMargin},
-                end:{x:this.axisYMargin, y: this.topMargin}
+                start:{x:this.leftMargin, y:this.height-this.bottomMargin},
+                end:{x:this.leftMargin, y: this.topMargin}
             },
             this.axisY);
         }
@@ -150,19 +172,19 @@ export class TimelineComponent implements AfterViewInit{
         return result;
     }
 
-    private renderLegend(parent:SVGElement):SVGElement{
+    private renderLegend(parent:SVGElement):SVGElement|null{
         const result = SVG_BUILDER.createGroup(this.canvas, {styleClass:'legend'});
 
         return result;
     }
 
-    private renderActions(parent:SVGElement):SVGElement{
+    private renderActions(parent:SVGElement):SVGElement|null{
         const result = SVG_BUILDER.createGroup(this.canvas, {styleClass:'actions'});
 
         return result;
     }
 
-    private renderTooltips(parent:SVGElement):SVGElement{
+    private renderTooltips(parent:SVGElement):SVGElement|null{
         const result =  SVG_BUILDER.createGroup(this.canvas, {styleClass:'tooltips'});
 
         return result;
@@ -176,12 +198,13 @@ export class TimelineComponent implements AfterViewInit{
             this.parent= this.component?.nativeElement.parentNode.parentNode;
         }
 
-        let parentSize = SVG_MATH.size(this.parent);
-        if(parentSize){
+        if(this.parent){
+            let parentSize = SVG_MATH.size(this.parent);
             this.height = parentSize.height;
             this.width = parentSize.width;
         }
-        console.log("");
+        
+      
         this.container?.nativeElement.setAttribute('style', `display: block; height:${this.height}px;width:${this.width}px`);
     }
 
@@ -194,7 +217,71 @@ export class TimelineComponent implements AfterViewInit{
     }
 
     public loadData(from:Date, until:Date, resolution:number):void{
-        this.data = this.loader(from, until, resolution);
+        this.loader(from, until, resolution).subscribe({
+            next: data=> this.refreshData(data,from,until,resolution),
+            error : err => console.error(err)
+        });
+
+    }
+
+    public refreshData(data:TimeBucket<number>[],from:Date, until:Date, resolution:number){
+        let buffer : any = {};
+        let stepMaxValue = 0;
+        
+
+        for(let item of data){
+            let stepMaxValueCursor = 0;
+
+            if(item.items){
+                stepMaxValueCursor = 0;
+                for(let itemValue of item.items){
+                    stepMaxValueCursor = stepMaxValueCursor+ (itemValue.value?itemValue.value:0);
+                    if(itemValue.type){
+                        const currentValue = itemValue.value ? itemValue.value : 0;
+                        const savedValue =  buffer[itemValue.type];
+                        buffer[itemValue.type] = savedValue ? savedValue+currentValue :currentValue;
+                    }
+                }
+                if(stepMaxValueCursor> stepMaxValue){
+                    stepMaxValue = stepMaxValueCursor;
+                }
+            }
+            
+        }
+        console.log(stepMaxValue)
+
+        const types:BoundedValue<string,number>[]= [];
+        const keys = Object.keys(buffer).sort();
+
+        for(let key  of keys){
+            types.push({
+                first:key,
+                second:buffer[key]
+            });
+        }
+
+        if(this.graph){
+           this.graphNodes=  this.renderer({
+                values:data,
+                types:types,
+                typesValues:keys,
+                from:from,
+                until:until,
+                resolution:resolution,
+                stepMaxValue:stepMaxValue,
+                stepMinValue:0,
+                graph: this.graph,
+                height: this.height-(this.topMargin + this.bottomMargin ),
+                width : this.width - (this.rightMargin + this.rightMargin ),
+                x : this.rightMargin,
+                y : this.height-this.bottomMargin,
+                styleGenerator:this.styleGenerator,
+                timer:this.timer,
+                delay:this.delay,
+                duration:this.duration,
+                graphNodes: this.graphNodes
+            });
+        }
     }
 
     /**************************************************************************

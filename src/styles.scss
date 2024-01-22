@@ -5,3 +5,17 @@ body{
     --primary-font: #181818;
     --secondary-font-light: #d9dcdf;
 }
+
+
+.value-item.success{
+    fill: rgb(61, 160, 61);
+    stroke:none;
+}
+.value-item.warning{
+    fill: rgb(221, 153, 50);
+    stroke:none;
+}
+.value-item.error{
+    fill: rgb(219, 43, 43);
+    stroke:none;
+}
