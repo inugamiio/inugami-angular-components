@@ -13,7 +13,6 @@ export const TIMELINE_GRAPH_RENDERING ={
     // histogram
     // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     histogram : (data:TimelineData) :TimeLineValueNodes[] =>{
-        console.log("histogram");
         const step = data.width/data.resolution;
         const nbItems = data.values.length;
 
