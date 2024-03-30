@@ -5,6 +5,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { InugamiCommonsModule } from '../commons/inugami-commons.module';
 import { InugamiComponentsModule } from '../components/inugami-components.module';
 import { HomePage } from './home/home.page';
+import { IconView } from './icons/icons.view';
 import { TimelinePage } from './timeline/timeline.page';
 
 
@@ -12,10 +13,12 @@ import { TimelinePage } from './timeline/timeline.page';
 @NgModule({
   declarations: [
     HomePage,
+    IconView,
     TimelinePage
   ],
   exports:[
     HomePage,
+    IconView,
     TimelinePage
   ],
   imports: [

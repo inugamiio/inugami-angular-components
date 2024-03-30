@@ -1,0 +1,70 @@
+.page.small-display .inu-menu-link-header-label,
+.page.medium-display .inu-menu-link-header-label {
+    display: none;
+}
+
+/*#############################################################################
+# COMPONENTS
+#############################################################################*/
+
+/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+inu-menu-link
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.inu-menu-link {
+    width: 100%;
+    cursor: pointer;
+}
+.inu-menu-links svg {
+    height: 3rem;
+    width: 3rem;
+}
+
+.inu-menu-links.level-0 {
+    margin-bottom: 0.5rem;
+}
+
+.inu-menu-links.level-0 ul {
+    border-left: 1px solid;
+    padding-left: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.inu-menu-links.level-0.collapsed ul {
+    display: none;
+}
+
+.inu-menu-links.level-0 svg {
+    height: 2rem;
+    width: 2rem;
+}
+.inu-menu-links.level-0 ul {
+    margin-left: 1rem;
+}
+
+.inu-menu-links.level-1 svg {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.inu-menu-links.level-1 ul {
+    margin-left: 2rem;
+}
+
+.value-item.success {
+    fill: rgb(61, 160, 61);
+    stroke: none;
+}
+.value-item.warning {
+    fill: rgb(221, 153, 50);
+    stroke: none;
+}
+.value-item.error {
+    fill: rgb(219, 43, 43);
+    stroke: none;
+}
+
+svg .inugami .inugami-gray {
+    fill: #484848;
+}
+
+svg .inugami .inugami-red {
+    fill: #b50000;
+}

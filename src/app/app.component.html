@@ -1,25 +1,21 @@
-<div class="page-content container-fluid">
-  <div class="row">
-    <div class="col-1 main-menu">
+<div [class]="mainPageStyleClass">
+  <div class="page-layout">
+
+    <div class="main-menu">
       <aside>
+        <div class="inugami-icon">
+          <inu-icon [icon]="icon.inugami"></inu-icon>
+        </div>
+        
+
         <menu>
-          <ul>
-            <li>
-              <a routerLink="">Home</a>
-            </li>
-            
-            <li>
-              <span>Components</span> 
-              <ul>
-                <li><a routerLink="components/timeline">timeline</a></li>
-              </ul>
-            </li>
-          </ul>
+          <inu-menu-links [data]="menuLinks"></inu-menu-links>
         </menu>
+        
       </aside>
     </div>
     
-    <div class="col-11  page-content">
+    <div class="page-content">
       <router-outlet></router-outlet>
     </div>
   </div>

@@ -1,4 +1,7 @@
 
+/*#############################################################################
+# GLOBALS
+#############################################################################*/
 body{
     --primary-background-light: #acacac;
     --primary-background-dark: #2C3E50;
@@ -7,15 +10,108 @@ body{
 }
 
 
-.value-item.success{
-    fill: rgb(61, 160, 61);
-    stroke:none;
+
+/*#############################################################################
+# SHOWCASE
+#############################################################################*/
+.inugami-icon{
+    width: 4rem;
+    height: 4rem;
 }
-.value-item.warning{
-    fill: rgb(221, 153, 50);
-    stroke:none;
+
+.main-menu{
+    -webkit-box-shadow: 0px 0px 20px 4px #b9b9b9; 
+    box-shadow:0px 0px 20px 4px #b9b9b9; 
+    
+    aside{
+        padding-left: 0.7rem;
+        padding-top: 1rem;
+
+        menu{
+            padding: 0;
+            margin: 0;
+
+            ul{
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                color:  var(--primary-font);
+
+                li{
+                    padding: 0;
+                    margin: 0;
+                }
+                a{
+                    color:  var(--primary-font);
+                }
+            }
+        }
+    }
 }
-.value-item.error{
-    fill: rgb(219, 43, 43);
-    stroke:none;
+
+.page{
+    width: 100vw;
+
+    .page-layout>div{
+        flex-direction: column;
+    }
+    .main-menu{
+        position:absolute;
+        width: 12rem;
+        min-height: 100vh;
+        transition: width 0.5s;
+    }
+    .page-content{
+        margin-left: 12rem;
+        width: calc(100vw - 12rem);
+        padding: 0.5rem;
+        transition: width 0.5s;
+        transition: margin-left 0.5s;
+    }
+}
+
+
+.page.small-display,
+.page.medium-display{
+    .main-menu{
+        width: 4rem;
+    }
+    
+    .page-content{
+        margin-left: 4rem;
+        width: calc(100vw - 4rem);
+    }
+}
+
+
+
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: PAGE ICONS
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+
+.icon-set{
+    list-style: none;
+    display: flex;
+    
+    li{
+        height: 8rem;
+        width: 8rem;
+        padding: 0.5rem;
+        list-style: none;
+        margin: 0.5rem;
+        border: 1px solid #d5d5d5;
+
+       .icon-name{
+        text-align: center;
+        margin-top: 1rem;
+       }
+        svg{
+            height: 4rem !important;
+            width: 4rem !important;
+            margin-left: 1.5rem;
+        }
+       
+    }   
 }
