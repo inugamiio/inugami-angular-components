@@ -1,0 +1,25 @@
+{
+    "name": "inugami-components",
+    "version": "4.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/inugamiio/inugami-angular-components"
+    },
+    "keywords": ["angular", "inugami"],
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/inugamiio/inugami-angular-components/issues"
+    },
+    "exports": {
+        "./resources/": "./resources/"
+    },
+    "module": "inugamiio.js",
+    "typings": "inugamiio.d.ts",
+    "peerDependencies": {
+        "@angular/core": "^15.0.0",
+        "@angular/common": "^15.0.0",
+        "@angular/forms": "^15.0.0",
+        "rxjs": "~7.5.0",
+        "zone.js": "~0.12.0"
+    }
+}
