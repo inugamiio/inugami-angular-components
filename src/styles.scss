@@ -5,14 +5,106 @@ body{
     font-family: 'Roboto';font-size: 20px;
 
     --white: #ffffff;
+    --primary: ##0D4457;
     --primary-background-light: #acacac;
     --primary-background-dark: #2C3E50;
     --primary-font: #181818;
+    --secondary:#570D20;
     --secondary-font-light: #d9dcdf;
     --background: #eee9e9;
     --menu-background: #fcf6f6;
     --menu-background-border: #bdbaba;
 
+
+    --endpoint-font-color: #3b4151;
+    --endpoint-verb-font-color: #3b4151;
+    /** GET---------------------------------------*/
+    --endpoint-get-background: #d9d6fe;
+    --endpoint-get-background-darker: #3f5470;
+    --endpoint-get-detail-background: #f7f7ff;
+    
+    /** HEAD-------------------------------------*/
+    --endpoint-head-background: #e7ddbd;
+    --endpoint-head-background-darker: #443f70;
+    --endpoint-head-detail-background: #f9fbff;
+
+    /** POST---------------------------------------*/
+    --endpoint-post-background: #bef0c6;
+    --endpoint-post-background-darker: #457040;
+    --endpoint-post-detail-background: #f2fcf4;
+
+    /** PUT----------------------------------------*/
+    --endpoint-put-background: #b9e6fe;
+    --endpoint-put-background-darker: #5f5033;
+    --endpoint-put-detail-background: #f1faff;
+
+    /** PATCH-------------------------------------*/
+    --endpoint-patch-background: #fddcab;;
+    --endpoint-patch-background-darker: #245452;
+    --endpoint-patch-detail-background: #fff8ee;
+
+    /** DELETE-----------------------------------*/
+    --endpoint-delete-background: #fecdca;
+    --endpoint-delete-background-darker: #623F55;
+    --endpoint-delete-detail-background: #fff5f4;
+
+    /** OPTIONS*/
+    --endpoint-option-background: #ffd4e0;
+    --endpoint-option-background-darker: #372E34;
+    --endpoint-option-detail-background: #fff6f9;
+
+
+    /** TRACE-----------------------------------*/
+    --endpoint-trace-background: #c1ccda;
+    --endpoint-trace-background-darker: #e6ebf5;
+    --endpoint-trace-detail-background: #dbdfe7;
+
+    --danger: #dc0000;
+    --danger-dark: #b50000;
+    --danger-light: #ff4141;
+    --warning: #ff6600;
+    --warning-dark: #b54800;
+    --warning-light: #ff9900;
+    --success: #009100;
+    --success-dark: #005b00;
+    --success-light: #9ade00;
+    --info:#0084c8;
+    --info-dark:#005c94;
+    --info-light:#19aeff;
+  
+    --neutral:#999494;
+    --neutral-dark:#635f5f;
+    --neutral-light:#cccccc;
+
+
+    --base-dark-light: #454350;
+    --base-dark: #1F1E26;
+    --base-darker: #14131a;
+
+    --base-emphase-lighter: #eae8fc;
+    --base-emphase: #d9d6fe;
+    --base-emphase-darker: #a3a1c7;
+
+    --base-secondary-lighter: #C880AF;
+    --base-secondary: #8C5A7B;
+    --base-secondary-darker: #623F55;
+
+
+    --base-neutral-lighter: #f5ebe3;
+    --base-neutral: #f7f7f7;
+    --base-neutral-lighter-font: #554a4a;
+    --base-neutral-font: #262424;
+    --base-neutral-darker: #dacdc3;
+
+    --base-focus-lighter: #dbc888;
+    --base-focus: #D4C48C;
+    --base-focus-darker: #B3A476;
+    
+    --base-focus-emphase-lighter: #F6C199;
+    --base-focus-emphase: #FFC89E;
+    --base-focus-emphase-darker: #B38C6F;
+
+    
 }
 
 @font-face {

@@ -1,6 +1,10 @@
+import { Observable } from "rxjs";
 import { BoundedValue, TimeBucket } from "./select-item.model";
 import { SvgTimerGenerator } from "./svg-options.model";
 import { SvgStyleGenerator } from "./svg-service.model";
+
+//export type SvgStyleGenerator = (value:number, maxValue:number, minValue:number, type:string)=>SvgStyle;
+export type SvgTimelineLoader = (from: Date, until: Date, resolution: number) => Observable<TimeBucket<number>[]>;
 
 export interface TimelineLoader {
     load(from:Date, until:Date, resolution:number) : TimeBucket<number>[];

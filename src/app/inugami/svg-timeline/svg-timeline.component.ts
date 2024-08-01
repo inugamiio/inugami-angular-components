@@ -17,24 +17,25 @@ import {
     TimelineLoader,
     TimeLineValueNodes,
     SvgTimerGenerator,
-    SvgStyleGenerator} from 'inugami-components/models';
+    SvgStyleGenerator,
+    SvgTimelineLoader} from 'inugami-components/models';
 
 import { SVG, SVG_ANIMATION, SVG_BUILDER, SVG_MATH } from 'inugami-components/utils';
-import { TIMELINE_GRAPH_RENDERING } from './timeline.utils';
+import { TIMELINE_GRAPH_RENDERING } from './svg-timeline.utils';
 
 
 const DAY = 60000 * 60 * 24;
 
 @Component({
-    selector: 'timeline',
-    styleUrls: ['./timeline.scss'],
+    selector: 'inu-svg-timeline',
+    styleUrls: ['./svg-timeline.scss'],
     template: `
         <div [class]="getStyleclass()" #component>
             <svg #container xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
     `
 })
-export class TimelineComponent implements AfterViewInit {
+export class SvgTimelineComponent implements AfterViewInit {
 
 
     /**************************************************************************
@@ -49,7 +50,7 @@ export class TimelineComponent implements AfterViewInit {
     @Input()
     public resolution: number = 100;
     @Input()
-    public loader: (from: Date, until: Date, resolution: number) => Observable<TimeBucket<number>[]> = (from, until, resolution) => of([]);
+    public loader: SvgTimelineLoader = (from, until, resolution) => of([]);
     @Input()
     public renderer: (data: TimelineData) => TimeLineValueNodes[] = TIMELINE_GRAPH_RENDERING.histogram;
     @Input()

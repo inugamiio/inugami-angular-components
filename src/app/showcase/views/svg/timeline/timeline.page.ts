@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-//import { SelectItemModel, TimeBucket } from 'src/app/inugami/commons/models/select-item.model';
-//import { SVG_ANIMATION } from 'src/app/inugami/commons/utils/svg.utils';
+import { SelectItemModel, SvgTimelineLoader, TimeBucket } from 'inugami-components/models';
+import { SVG_ANIMATION } from 'inugami-components/utils';
 
 @Component({
   templateUrl: './timeline.page.html',
@@ -12,9 +12,9 @@ import { Observable, of } from 'rxjs';
 export class TimelinePage implements OnInit {
   private strData: string | null = null;
 
-  /*
+  
   public data: TimeBucket<number>[] | null = [];
-  public loader: ((from: Date, until: Date, resolution: number) => Observable<TimeBucket<number>[]>) | null = null;
+  public loader: SvgTimelineLoader | null = null;
   public from: Date = new Date(Date.parse("2023-12-20T09:44:00"));
   public until: Date = new Date(Date.parse("2024-01-20T09:44:00"));
   public timer: any = {
@@ -25,14 +25,15 @@ export class TimelinePage implements OnInit {
     easeInQuad: SVG_ANIMATION.TYPES.easeInQuad,
     easeOutQuad: SVG_ANIMATION.TYPES.easeOutQuad
   };
-*/
+
+
   public animeValue: number = 0;
 
   /**************************************************************************
   * CONSTRUCTORS
   **************************************************************************/
   constructor(private http: HttpClient) {
-  //  this.loader = (from, until, resolution) => this.load(from, until, resolution);
+    this.loader = (from, until, resolution) => this.load(from, until, resolution);
   }
 
 
@@ -40,7 +41,7 @@ export class TimelinePage implements OnInit {
   * INITIALIZE
   **************************************************************************/
   ngOnInit() {
-    /*
+  
     let json = localStorage.getItem("timeline.data");
     if (json) {
       this.initializeData(JSON.parse(json));
@@ -51,10 +52,10 @@ export class TimelinePage implements OnInit {
         }
       });
     }
-    */
+  
   }
 
-/*
+
   private initializeData(res: TimeBucket<number>[]) {
     this.data = [];
     localStorage.setItem("timeline.data", JSON.stringify(res));
@@ -77,11 +78,11 @@ export class TimelinePage implements OnInit {
     console.log(`t : ${time}`);
   }
 
-*/
+
   /**************************************************************************
   * loadData
   **************************************************************************/
-  /*
+
   load(from: Date, until: Date, resolution: number): Observable<TimeBucket<number>[]> {
     
     const result = [];
@@ -153,5 +154,5 @@ export class TimelinePage implements OnInit {
 
     return of(result);
   }
-  */
+
 }

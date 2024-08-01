@@ -8,7 +8,6 @@ import { MenuLink } from 'inugami-components/models';
     selector: 'inu-menu-links',
     styleUrls: ['./menu-links.component.scss'],
     template: `
-
         <div [class]="getStyleclass()" *ngIf="data">
             <div class="inu-menu-link-header" (click)="navigate(data)">
                 <span *ngIf="data.icon" class="inu-menu-link-header-icon" [innerHTML]="getSafeHtml(data.icon)"></span>

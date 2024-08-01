@@ -5,9 +5,12 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
+//-----------
 import { InugamiIconModule } from 'inugami-components/icon';
 import { InugamiMenuLinksModule } from 'inugami-components/menu-links';
-
+import { InugamiSvgTimelineModule } from 'inugami-components/svg-timeline';
+//-----------
 
 import { HomePage } from './views/home/home.page';
 import { IconView } from './views/icons/icons.view';
@@ -29,7 +32,8 @@ import { TimelinePage } from './views/svg/timeline/timeline.page';
 
     // --- 
     InugamiIconModule,
-    InugamiMenuLinksModule
+    InugamiMenuLinksModule,
+    InugamiSvgTimelineModule
 
 
   ],

@@ -11,25 +11,18 @@
             <div class="content">
 
                 <div style="height: 200px; width: 100%;">
-
-                    <!--
-                    <timeline styleclass="current-timeline"
-                             [loader]="loader"
-                             [from]="from"
-                             [until]="until"
-                             [resolution]="300"
-                             [timer]="timer.easeOutQuad"
-                             [duration]="2000"
-                             [delay]="1000">
-                    </timeline>
-                    -->
+                    <ng-container *ngIf="loader">
+                        <inu-svg-timeline   styleclass="current-timeline"
+                                            [loader]="loader"
+                                            [from]="from"
+                                            [until]="until"
+                                            [resolution]="300"
+                                            [timer]="timer.easeOutQuad"
+                                            [duration]="2000"
+                                            [delay]="1000">
+                        </inu-svg-timeline>
+                    </ng-container>
                 </div>
-                
-
-            </div>
-            <div>
-                    <!--<button (click)="play()">Play</button>-->
-                    <span style="border: 1 px solid">{{animeValue}}</span>
             </div>
         </article>
 
