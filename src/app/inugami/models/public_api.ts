@@ -1,3 +1,4 @@
+export * from './data.model';
 export * from './menu-links.model';
 export * from './select-item.model';
 export * from './svg-options.model';
