@@ -75,16 +75,33 @@
                     "defaultConfiguration": "production"
                 },
                 "serve": {
+                  "builder": "@angular-devkit/build-angular:dev-server",
+                  "configurations": {
+                      "production": {
+                        "browserTarget": "inugami-angular-components:build:production"
+                      },
+                      "development": {
+                        "browserTarget": "inugami-angular-components:build:development"
+                      }
+                  },
+                  "defaultConfiguration": "development"
+              },
+
+                "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
+                    "browserTarget": "inugami-angular-components-showcase:build:development",
+                    "options": {
+                        "browserTarget": "inugami-angular-components-showcase:build:development"
+                    },
                     "configurations": {
                         "production": {
-                            "browserTarget": "inugami-angular-components:build:production"
+                            "browserTarget": "inugami-angular-components-showcase:build:production"
                         },
                         "development": {
-                            "browserTarget": "inugami-angular-components:build:development"
-                        }
-                    },
-                    "defaultConfiguration": "development"
+                            "browserTarget": "inugami-angular-components-showcase:build:development"
+                        },
+                        "defaultConfiguration": "development"
+                    }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
