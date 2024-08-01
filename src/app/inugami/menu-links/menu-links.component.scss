@@ -1,0 +1,21 @@
+.inu-menu-links{
+    padding: 1rem;
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li{
+
+        }
+    }
+
+    &.level-0{
+        padding: 0.5rem;
+    }
+
+    .inu-menu-link-header{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+}

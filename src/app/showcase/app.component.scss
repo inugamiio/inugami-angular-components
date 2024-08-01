@@ -1,0 +1,108 @@
+
+/*#############################################################################
+# GLOBALS
+#############################################################################*/
+body{
+ 
+
+
+    background-color: var(--background);
+}
+
+
+
+/*#############################################################################
+# SHOWCASE
+#############################################################################*/
+.inugami-icon{
+    width: 4rem;
+    height: 4rem;
+}
+
+.main-menu{
+    -webkit-box-shadow: 0px 0px 1rem 1rem #b9b9b9; 
+    box-shadow:0px 0px  1rem 1rem #d3cece;; 
+    background-color: var(--menu-background);
+
+    
+        menu{
+            padding: 0;
+            margin: 0;
+            header{
+                padding: 1rem;
+                border-bottom: 2px solid var(--menu-background-border);
+                display: flex;
+                align-items: center;
+                ::ng-deep{
+                    .inu-icon.inugami-icon{
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                }
+                
+                h1{
+                   text-align: center;
+                   font-size: 120%;
+                }
+            }
+
+            ul{
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                color:  var(--primary-font);
+
+                li{
+                    padding: 0;
+                    margin: 0;
+                }
+                a{
+                    color:  var(--primary-font);
+                }
+            }
+        }
+    
+}
+
+.page{
+    width: 100vw;
+
+    .page-layout>div{
+        flex-direction: column;
+    }
+    .main-menu{
+        position:absolute;
+        width: 17rem;
+        min-height: 100vh;
+        transition: width 0.5s;
+    }
+    .page-content{
+        margin-left: 17rem;
+        width: calc(100vw - 16rem);
+        padding: 0.5rem;
+        transition: width 0.5s;
+        transition: margin-left 0.5s;
+        padding-left: 2rem;
+    }
+}
+
+
+.page.small-display,
+.page.medium-display{
+    .main-menu{
+        width: 4rem;
+        menu{
+            header{
+                h1{
+                    display: none;
+                }
+            }
+        }
+    }
+    
+    .page-content{
+        margin-left: 4rem;
+        width: calc(100vw - 4rem);
+    }
+}
+

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-//import { INU_ICON } from 'inugamiio/components/icon';
-//import { MenuLink } from 'inugamiio/commons/models';
+import { INU_ICON } from 'inugami-components/icon';
+import { MenuLink } from 'inugami-components/models';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +15,12 @@ export class AppComponent implements OnInit{
   mainPageStyleClass : string = 'page';
   displayType : string = 'large';
 
-  /*
-    icon : any = {
+  
+  icon : any = {
     inugami : INU_ICON.inugami,
     home : INU_ICON.home
   }
-
+  
   menuLinks : MenuLink = {
     children : [
       {
@@ -34,23 +34,34 @@ export class AppComponent implements OnInit{
           }
         ]
       },
+      
       {
         label: 'Components',
+        icon : INU_ICON.puzzle,
+      },
+
+      {
+        label: 'SVG Components',
         icon : INU_ICON.puzzle,
         children : [
           {
             label: 'Timeline',
-            link: 'components/timeline',
+            link: 'svg/timeline',
             icon : INU_ICON.timegraph,
           }
         ]
+      },
+
+
+      {
+        label: 'Services',
+        icon : INU_ICON.puzzle,
+        
       }
     ]
   };
 
-  */
   
-
   
   // ==================================================================================================================
   // INIT

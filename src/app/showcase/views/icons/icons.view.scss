@@ -1,21 +1,35 @@
 .icon-set{
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     
+
+
     li{
         height: 8rem;
         width: 8rem;
+        display: flex;
         padding: 0.5rem;
         list-style: none;
         margin: 0.5rem;
         border: 1px solid #d5d5d5;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        transition: box-shadow 250ms;
 
-       
-        svg{
-            height: 2rem !important;
-            width: 2rem !important;
+        &:hover{
+            background-color: var(--white);
+            -webkit-box-shadow: 0px 0px 0.35rem 0.35rem #b9b9b9; 
+            box-shadow:0px 0px  0.35rem 0.35rem #d3cece;; 
         }
-       
+        ::ng-deep{
+            .inu-icon{
+                width: 5rem;
+                height: 5rem;
+            }
+        }
+              
     }   
 }
 

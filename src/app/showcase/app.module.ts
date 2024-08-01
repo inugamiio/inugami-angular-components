@@ -6,25 +6,30 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { InugamiIconModule } from 'inugami-components/icon';
+import { InugamiMenuLinksModule } from 'inugami-components/menu-links';
 
-import { InugamiViewsModule } from './views/inugami-views.module';
+
+import { HomePage } from './views/home/home.page';
+import { IconView } from './views/icons/icons.view';
+import { TimelinePage } from './views/svg/timeline/timeline.page';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePage,
+    IconView,
+    TimelinePage
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
 
-    // --- modules 
-    InugamiViewsModule,
-    NgbModule,
-
     // --- 
-    InugamiIconModule
+    InugamiIconModule,
+    InugamiMenuLinksModule
 
 
   ],

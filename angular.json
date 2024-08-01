@@ -38,13 +38,10 @@
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets", "src/data"],
                         "styles": [
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/inugami-components.css",
                             "src/styles.scss"
                         ],
                         "scripts": [
-                            "node_modules/jquery/dist/jquery.min.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
                         ]
                     },
                     "configurations": {
