@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MenuLink } from '../../commons/models/menu-links.model';
+import { MenuLink } from 'inugami-components/models';
 
 
 @Component({

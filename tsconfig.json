@@ -24,7 +24,7 @@
       "dom"
     ],
     "paths": {
-      "inugamiio/*": ["src/app/inugami/*/public_api"]
+      "inugami-components/*": ["src/app/inugami/*/public_api"]
     }
   },
   "angularCompilerOptions": {

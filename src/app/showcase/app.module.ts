@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { InugamiIconModule } from 'inugamiio/icon';
+import { InugamiIconModule } from 'inugami-components/icon';
 
 import { InugamiViewsModule } from './views/inugami-views.module';
 

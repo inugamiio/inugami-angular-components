@@ -2,3 +2,14 @@
 /.idea/
 /.angular/
 /inugami-angular-components.iml
+/dist/esm2022/
+/dist/fesm2022/
+/dist/icon/
+/dist/inugami-angular-components-showcase/
+/dist/menu-links/
+/dist/models/
+/dist/timeline/
+/dist/utils/
+/dist/index.d.ts
+/dist/package.json
+/dist/public_api.d.ts

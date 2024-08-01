@@ -1,11 +1,22 @@
 {
-  "name": "inugami-angular-components",
-  "version": "0.0.0",
+  "name": "inugami-components",
+  "version": "4.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inugamiio/inugami-angular-components"
+  },
+  "keywords": ["angular", "inugami"],
+  "license": "GPL-3.0",
+  "bugs": {
+      "url": "https://github.com/inugamiio/inugami-angular-components/issues"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "extract-icons": "node icon-extractor.js",
     "build": "ng build",
+    "build:package": "BROWSERSLIST_ENV=library ng build inugami-angular-components",
+    "build:lib": "npm run build:package",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -39,6 +50,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "ng-packagr": "^16.0.0",
     "typescript": "~4.8.2",
     "jsdom": "20.0.3"
   }

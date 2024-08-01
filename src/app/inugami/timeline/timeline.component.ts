@@ -10,11 +10,16 @@ import {
     HostListener
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { BoundedValue, TimeBucket } from 'src/app/inugami/commons/models/select-item.model';
-import { SvgTimerGenerator } from 'src/app/inugami/commons/models/svg-options.model';
-import { SvgStyleGenerator } from 'src/app/inugami/commons/models/svg-service.model';
-import { SVG, SVG_ANIMATION, SVG_BUILDER, SVG_MATH } from 'src/app/inugami/utils/svg.utils';
-import { TimelineData, TimelineLoader, TimeLineValueNodes } from '../../commons/models/timeline.model';
+import {
+    BoundedValue,
+    TimeBucket,
+    TimelineData,
+    TimelineLoader,
+    TimeLineValueNodes,
+    SvgTimerGenerator,
+    SvgStyleGenerator} from 'inugami-components/models';
+
+import { SVG, SVG_ANIMATION, SVG_BUILDER, SVG_MATH } from 'inugami-components/utils';
 import { TIMELINE_GRAPH_RENDERING } from './timeline.utils';
 
 

@@ -1,6 +1,5 @@
-import { TimeBucket } from "src/app/inugami/commons/models/select-item.model";
-import { SVG, SVG_BUILDER, SVG_TRANSFORM } from "src/app/inugami/utils/svg.utils";
-import { TimelineData, TimeLineValueNodes } from "../../commons/models/timeline.model";
+import { SVG, SVG_BUILDER, SVG_TRANSFORM } from 'inugami-components/utils';
+import { TimeBucket, TimelineData, TimeLineValueNodes } from 'inugami-components/models';
 
 
 // ====================================================================================================================

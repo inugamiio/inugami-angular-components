@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItemModel, TimeBucket } from 'inugamiio/models';
+import { SelectItemModel, TimeBucket } from 'inugami-components/models';
 import { HttpClient } from '@angular/common/http';
 import { SVG_ANIMATION } from 'src/app/inugami/utils/svg.utils';
 import { ObjectUnsubscribedError, Observable, of } from 'rxjs';
