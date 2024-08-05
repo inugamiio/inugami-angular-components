@@ -1,0 +1,19 @@
+<xml>
+
+    <!--*********************************************************************** 
+    * 
+    ***********************************************************************-->
+    <src name="defaultExample">
+<![CDATA[
+<inu-clock></inu-clock>
+]]>
+    </src>
+
+    <src name="withTimeFormat">
+<![CDATA[
+<inu-clock timeFormat="YYYY-MM-DD HH:mm:ss"></inu-clock>
+]]>
+    </src>
+    
+</xml>
+    

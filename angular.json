@@ -38,10 +38,15 @@
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets", "src/data"],
                         "styles": [
+                            "src/app/inugami/styles.scss",
+                            "node_modules/highlight.js/styles/github.css",
                             "src/inugami-components.css",
                             "src/styles.scss"
                         ],
                         "scripts": [
+                        ],
+                        "allowedCommonJsDependencies":[
+                            "highlight.js"
                         ]
                     },
                     "configurations": {
@@ -49,8 +54,8 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",

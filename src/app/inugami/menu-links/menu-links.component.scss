@@ -12,10 +12,18 @@
     &.level-0{
         padding: 0.5rem;
     }
+    &.level-1{
+        padding-left: 2rem;
+    }
 
     .inu-menu-link-header{
         display: flex;
         align-items: center;
         gap: 1rem;
+
+        .inu-menu-link-header-icon{
+            display: flex;
+            justify-content: center;
+        }
     }
 }

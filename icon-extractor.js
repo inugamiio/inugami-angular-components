@@ -8,7 +8,7 @@ const FILES = [
         svgName: 'INU_ICON_SVG',
         enumName: 'INU_ICON_TYPE',
         iconSetName: 'INU_ICON',
-        targetFolder: 'src/app/commons/components/icon/',
+        targetFolder: 'src/app/inugami/icon',
         targetFile: 'icons.ts',
     },
 ];
@@ -177,7 +177,9 @@ function writeFile(fileContent, fileInfo){
     if (!FS.existsSync(fileInfo.targetFolder)){
         FS.mkdirSync(fileInfo.targetFolder);
     }
-    FS.writeFile(`${fileInfo.targetFolder}/${fileInfo.targetFile}`, fileContent, err => {
+    const file = `${fileInfo.targetFolder}/${fileInfo.targetFile}`;
+    console.log(`write file : ${file}`);
+    FS.writeFile(file, fileContent, err => {
         if (err) {
           console.error(err);
         }

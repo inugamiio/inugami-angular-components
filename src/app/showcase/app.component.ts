@@ -41,7 +41,12 @@ export class AppComponent implements OnInit{
         children : [
           {
             label: 'Clock',
-            link: 'components/clock'
+            link: 'components/clock',
+            icon : INU_ICON.clock
+          },
+          {
+            label: 'Code',
+            link: 'components/code'
           }
         ]
       },

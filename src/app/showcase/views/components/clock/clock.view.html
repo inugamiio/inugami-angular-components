@@ -11,8 +11,21 @@
             <header>
                 <h2>Default</h2>
             </header>
-            <div class="content">
-                <inu-clock></inu-clock>
+
+            <div class="inu-row inu-gap-2">
+                <div class="content flex-1">
+                    <inu-clock></inu-clock>
+                </div>
+    
+    
+                <aside class="inu-col inu-gap-2 inu-w-40">
+                    <div>
+                        <inu-code *ngIf="sourceCodes"
+                          title="Default example"
+                          languages="xml"
+                          [source]="sourceCodes['defaultExample']"></inu-code>
+                    </div>
+                </aside>
             </div>
         </article>
 
@@ -23,8 +36,21 @@
             <header>
                 <h2>With format defined</h2>
             </header>
-            <div class="content">
-                <inu-clock timeFormat="YYYY-MM-DD HH:mm:ss"></inu-clock>
+
+            <div class="inu-row inu-gap-2">
+                <div class="content flex-1">
+                    <inu-clock timeFormat="YYYY-MM-DD HH:mm:ss"></inu-clock>
+                </div>
+    
+    
+                <aside class="inu-col inu-gap-2 inu-w-40">
+                    <div>
+                        <inu-code *ngIf="sourceCodes"
+                          title="with time format"
+                          languages="xml"
+                          [source]="sourceCodes['withTimeFormat']"></inu-code>
+                    </div>
+                </aside>
             </div>
         </article>
     </div>

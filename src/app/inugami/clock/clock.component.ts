@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Formatter } from 'inugami-components/utils';
+import { Formatter ,ComponentUtils} from 'inugami-components/utils';
 
 const DEFAULT_TIME_FORMAT = "YYYY-MM-DD HH:mm";
 
 @Component({
     selector: 'inu-clock',
     template: `
-        <div [class]="_styleClass" [ngClass]="'inu-clock'">
+        <div [class]="_styleClass">
             <ng-container *ngIf="time">
                 <div class="time">{{time}}</div>
             </ng-container>
@@ -50,9 +50,6 @@ export class InuClockComponent implements OnInit {
     // GETTERS
     //==================================================================================================================
     get _styleClass(): string {
-        if (!this.styleClass) {
-            this.styleClass = '';
-        }
-        return this.styleClass;
+        return ComponentUtils.generateStyleclass('inu-clock', this.styleClass);
     }
 }
