@@ -1,0 +1,36 @@
+<div #mainComponent  [class]="_styleClass">
+    
+        <ng-container *ngFor="let news of data">
+            <article #news [class]="getNewsClass(news)" [id]="news.uid" >
+                <div class="inu-breaking-news-content">
+                    
+                    <div class="inu-breaking-news-content-message">
+                        <div  class="inu-breaking-news-content-message-title">
+                                {{news.title}}
+                        </div>
+                        <div class="inu-breaking-news-content-message-txt">
+                            {{news.message}}
+                        </div>
+                    </div>
+    
+                    <div class="inu-breaking-news-content-summary">
+                        <div class="inu-breaking-news-content-summary-detail">
+                            <div class="inu-breaking-news-content-icon">
+                                <inu-icon [icon]="news.icon"></inu-icon>
+                            </div>
+        
+                            <div class="inu-breaking-news-content-date">
+                                {{news.date}}
+                            </div>
+                        </div>
+                        
+                        <div class="inu-breaking-news-content-nbNews">
+                            <span class="inu-breaking-news-content-nbNews-current">{{getNewsIndex(news)}}</span>
+                            <span class="inu-breaking-news-content-nbNews-total">{{nbNews}}</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+    
+       </ng-container>
+</div>

@@ -420,7 +420,7 @@ export const SVG_TRANSFORM: SvgTransform = {
     // ========================================================================
     // extractTransformInformation
     // ========================================================================
-    extractTransformInformation: (node: SVGElement): TransformationInfo => {
+    extractTransformInformation: (node: SVGElement|HTMLElement): TransformationInfo => {
         const attrTransfo = node.getAttribute("transform");
 
         let x = null;
@@ -538,7 +538,7 @@ export const SVG_TRANSFORM: SvgTransform = {
     // ========================================================================
     // TOOLS
     // ========================================================================
-    toogleClass: (node: SVGElement, styleclass: string): void => {
+    toogleClass: (node: SVGElement|HTMLElement, styleclass: string): void => {
         if (!node) {
             return;
         }
@@ -553,7 +553,7 @@ export const SVG_TRANSFORM: SvgTransform = {
             node.setAttribute('class', styleclass);
         }
     },
-    removeClass: (node: SVGElement, styleclass: string): void => {
+    removeClass: (node:  SVGElement|HTMLElement, styleclass: string): void => {
         if (!node) {
             return;
         }
@@ -564,7 +564,7 @@ export const SVG_TRANSFORM: SvgTransform = {
             }
         }
     },
-    addClass: (node: SVGElement, styleclass: string): void => {
+    addClass: (node:  SVGElement|HTMLElement, styleclass: string): void => {
         if (!node) {
             return;
         }
@@ -577,7 +577,7 @@ export const SVG_TRANSFORM: SvgTransform = {
             node.setAttribute('class', styleclass);
         }
     },
-    hasClass: (node: SVGElement, styleclass: string): boolean => {
+    hasClass: (node:  SVGElement|HTMLElement, styleclass: string): boolean => {
         if (!node) {
             return false;
         }
@@ -621,7 +621,8 @@ export const SVG_ANIMATION : SvgAnimations = {
             duration    : (now+duration)-now,
             startTime   : now,
             ttl         : now+duration,
-            callback    : callback
+            callback    : callback,
+            onDone      : currentOption.onDone
         }
 
         
@@ -656,6 +657,9 @@ class AnimationHandler{
             const progress = timestamp/duration
             if (progress >=1) {
                 this.parameters.callback(this.parameters.timer(1));
+                if(this.parameters.onDone){
+                    this.parameters.onDone();
+                }
                 if(this.animeId){
                     cancelAnimationFrame(this.animeId);
                 }
@@ -664,6 +668,7 @@ class AnimationHandler{
                 return;
             }
             this.parameters.callback(this.parameters.timer(progress));
+           
             this.animeId = requestAnimationFrame(frame);
         }
 

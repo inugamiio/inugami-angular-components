@@ -9,12 +9,12 @@ export interface SvgTransform {
     scaleX : (node: SVGElement , scaleX:number) => void;
     scaleY : (node: SVGElement , scaleY:number) => void;
     matrix : (node: SVGElement, scaleX:number,scaleY:number, posX:number, posY:number) => void;
-    extractTransformInformation: (node: SVGElement)=> TransformationInfo;
+    extractTransformInformation: (node: SVGElement|HTMLElement)=> TransformationInfo;
     center: (compo:SVGElement, svgContainer: HTMLElement, onX: boolean, onY: boolean)=>number;
-    toogleClass: (node:SVGElement, styleclass:string)=> void;
-    removeClass: (node:SVGElement, styleclass:string)=>void;
-    addClass: (node:SVGElement, styleclass:string)=> void;
-    hasClass: (node:SVGElement, styleclass:string)=> boolean;
+    toogleClass: (node:SVGElement|HTMLElement, styleclass:string)=> void;
+    removeClass: (node:SVGElement|HTMLElement, styleclass:string)=>void;
+    addClass: (node:SVGElement|HTMLElement, styleclass:string)=> void;
+    hasClass: (node:SVGElement|HTMLElement, styleclass:string)=> boolean;
     _genericTransform : (node: SVGElement, transfo:TransformationInfo)=> void;
     _noScale : (data:TransformationInfo )=>boolean;
     _noTranslate : (data:TransformationInfo)=>boolean;

@@ -40,6 +40,10 @@ export class AppComponent implements OnInit{
         icon : INU_ICON.puzzle,
         children : [
           {
+            label: 'BreakingNews',
+            link: 'components/breaking-news'
+          },
+          {
             label: 'Clock',
             link: 'components/clock',
             icon : INU_ICON.clock

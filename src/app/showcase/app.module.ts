@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -6,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 //-----------
+import { InugamiBreakingNewsModule } from 'inugami-components/breaking-news';
 import { InugamiClockModule } from 'inugami-components/clock';
 import { InugamiCodeModule } from 'inugami-components/code';
 import { InugamiIconModule } from 'inugami-components/icon';
@@ -18,14 +20,17 @@ import { HomePage } from './views/home/home.page';
 import { ClockView } from './views/components/clock/clock.view';
 import { IconView } from './views/icons/icons.view';
 import { TimelinePage } from './views/svg/timeline/timeline.page';
-import { CommonModule } from '@angular/common';
+
 import { CodeView } from './views/components/code/code.view';
+import { BreakingNewsView } from './views/components/breaking-news/breaking-news.view';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    BreakingNewsView,
     ClockView,
     CodeView,
     HomePage,
@@ -40,6 +45,7 @@ import { CodeView } from './views/components/code/code.view';
     FormsModule,
 
     // --- 
+    InugamiBreakingNewsModule,
     InugamiClockModule,
     InugamiCodeModule,
     InugamiIconModule,

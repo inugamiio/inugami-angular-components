@@ -20,12 +20,14 @@ export interface TextOption extends SvgOptionalOption{
     fontSize?: number;
 }
 
+export type SvgAnimationDone = ()=> void;
 export type SvgAnimationCallback = (time:number)=> void;
 export type SvgTimerGenerator = (time:number)=>number;
 export interface SvgAnimationOption {
     timer?:SvgTimerGenerator;
     delay?: number;
     duration?:number;
+    onDone?:SvgAnimationDone;
 }
 export interface SvgAnimationParameters {
     timer:SvgTimerGenerator;
@@ -33,5 +35,6 @@ export interface SvgAnimationParameters {
     duration:number;
     startTime:number,
     ttl:number;
-    callback:SvgAnimationCallback
+    callback:SvgAnimationCallback;
+    onDone?:SvgAnimationDone;
 }

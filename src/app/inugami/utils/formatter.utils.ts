@@ -131,6 +131,12 @@ export class Formatter {
     //==================================================================================================================
     // DATE
     //==================================================================================================================
+    public static dateToString(value: Date, format?:string): string {
+        const timestamp = value.getTime()/1000;
+        return Formatter.timestampToTimeFormat(timestamp, format?format:"YYYY-MM-DD HH:mm:ss");
+    }
+
+
     public static timestampToDate(value: number): string {
         return Formatter.timestampToTimeFormat(value, "YYYY-MM-DD HH:mm");
     }

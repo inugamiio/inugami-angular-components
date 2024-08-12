@@ -1,0 +1,156 @@
+/**/
+.inu-breaking-news{
+    height: 100px;
+    border-top: 2px solid var(--neutral-dark);
+    box-shadow: 0px 0px 2rem 0px var(--base-emphase-darker);
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    transition: border-color 500ms;
+    background-color: var(--white);
+
+    & article{
+        .inu-breaking-news-content-summary-detail,
+        .inu-breaking-news-content-nbNews{
+            transition: background-color 300ms ;
+        }
+    }
+     & {
+        border-color:  var(--neutral-dark);
+        article{
+            .inu-breaking-news-content-summary-detail,
+            .inu-breaking-news-content-nbNews{
+                background-color: var(--neutral-dark);
+            }
+        }
+    }
+    &.info{
+        border-color:  var(--info);
+        article{
+            .inu-breaking-news-content-summary-detail,
+            .inu-breaking-news-content-nbNews{
+                background-color: var(--info);
+            }
+        }
+    }
+    &.warn{
+        border-color:  var(--warning);
+        article{
+            .inu-breaking-news-content-summary-detail,
+            .inu-breaking-news-content-nbNews{
+                background-color: var(--warning);
+            }
+        }
+    }
+    &.error{
+        border-color:  var(--danger);
+        article{
+            .inu-breaking-news-content-summary-detail,
+            .inu-breaking-news-content-nbNews{
+                background-color: var(--danger);
+            }
+        }
+    }
+    &.fatal{
+        border-color:  var(--fatal-dark);
+        article{
+            .inu-breaking-news-content-summary-detail,
+            .inu-breaking-news-content-nbNews{
+                background-color: var(--fatal-dark);
+            }
+        }
+    }
+
+    article{
+        margin-bottom: 5px;
+        margin-top: 5px;
+        height: 100px;
+        position: absolute;
+        bottom: -120px;
+    }
+
+  
+
+   .inu-breaking-news-content{
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 1rem;
+        align-items: stretch;
+
+        .inu-breaking-news-content-message{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .inu-breaking-news-content-message-title{
+                font-weight: bold;
+            }
+        }
+        .inu-breaking-news-content-summary{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 100px;
+            margin-top: -10px;
+            margin-left: -20px;
+            padding-left: 10px;
+            color:var(--neutral-lighter);
+            fill:var(--neutral-lighter);
+
+            .inu-breaking-news-content-summary-detail{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100px;
+                padding-left: 1rem;
+        
+
+                .inu-breaking-news-content-icon{
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    padding-top: 1rem;
+                    ::ng-deep{
+                        .inu-icon{
+                            height: 2.5rem;
+                            width: 2.5rem;
+                        }
+                    }
+                }
+                .inu-breaking-news-content-date{
+                    font-size: 80%;
+                    text-align: center;
+                    padding-bottom: 0.5rem;
+                }
+            }
+
+            
+            .inu-breaking-news-content-nbNews{
+                height: 100px;
+                display: flex;
+                align-items: center;
+                font-size: 80%;
+                border-radius: 0 100% 100% 0;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                font-weight: bold;
+                .inu-breaking-news-content-nbNews-total::before{
+                    content: '/';
+                }
+            }
+    
+        }
+   }
+
+   
+}
+
+
+.inu-breaking-news-spacer{
+    height: 200px;
+}

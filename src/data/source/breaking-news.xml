@@ -1,0 +1,90 @@
+<xml>
+
+<!--*********************************************************************** 
+* 
+***********************************************************************-->
+<src name="importModule">
+<![CDATA[
+import { InugamiBreakingNewsModule } from 'inugami-components/breaking-news';
+
+
+@NgModule({
+  imports: [
+    //...
+    // Inugami Modules --------
+    InugamiBreakingNewsModule
+  ]
+})
+export class AppModule { }
+]]>
+</src>
+
+<!--*********************************************************************** 
+* 
+***********************************************************************-->
+<src name="defaultExample">
+<![CDATA[
+<inu-breaking-news [events$]="observableSubscriber.observable"></inu-breaking-news>
+]]>
+</src>
+<src name="defaultExampleTS">
+<![CDATA[
+import { Component, OnInit } from '@angular/core';
+import { BreakingNews, BreakingNewsLevel, ObservableSubscriber } from 'inugami-components/models';
+
+@Component({
+    templateUrl: './my.view.html',
+    styleUrls: ['./my.view.scss']
+  })
+export class MyView implements OnInit {
+
+    observableSubscriber : ObservableSubscriber<BreakingNews[]> = new  ObservableSubscriber<BreakingNews[]>();
+
+    addNews(){
+        if(this.observableSubscriber.subscriber){
+            const events : BreakingNews[] = [];
+            events.push({
+            level: BreakingNewsLevel.INFO,
+            date : new Date(),
+            title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            message : 'Sed nibh enim, faucibus a mi in, pellentesque bibendum ante. Cras rutrum placerat sem, et viverra justo placerat in'
+            });
+            this.observableSubscriber.subscriber.next(events);
+        }
+    }
+}
+]]>
+</src>
+    
+<!--*********************************************************************** 
+*  MODELS
+***********************************************************************-->
+<src name="modelBreakingNews">
+<![CDATA[
+export interface BreakingNews {
+    title:string;
+    message:string;
+    uid?:string;
+    date?:Date,
+    duration?:number;
+    level?:BreakingNewsLevel;
+    icon?:string;
+    type?:string;
+    data?:any;
+} 
+]]>
+</src>
+<src name="modelBreakingNewsLevel">
+  <![CDATA[
+export enum BreakingNewsLevel{
+    INFO,
+    WARN,
+    ERROR,
+    FATAL
+} 
+]]>
+</src>
+
+
+</xml>
+    

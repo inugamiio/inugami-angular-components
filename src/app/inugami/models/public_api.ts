@@ -1,3 +1,4 @@
+export * from './breaking-news.model';
 export * from './data.model';
 export * from './menu-links.model';
 export * from './observable-subscriber';
