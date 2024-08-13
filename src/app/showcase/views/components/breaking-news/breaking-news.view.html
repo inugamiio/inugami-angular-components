@@ -1,0 +1,123 @@
+<section>
+    <header>
+        <h1>Breaking news</h1>
+    </header>
+    <div class="content" *ngIf="sourceCodes">
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Module</h2>
+            </header>
+            <inu-code title="AppModule"
+                      languages="typescript"
+                      [source]="sourceCodes['importModule']"></inu-code>
+        </article>
+
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Basic exemple</h2>
+            </header>
+
+            <inu-breaking-news [events$]="observableSubscriber.observable"></inu-breaking-news>
+            <div class="inu-row inu-gap-2 inu-nowrap">
+                <div class="content flex-1 inu-col inu-unset inu-gap-2 inu-w-80">
+
+                    <inu-code title="HTML"
+                              languages="xml"
+                              [source]="sourceCodes['defaultExample']"></inu-code>
+
+                    <inu-code title="Controller"
+                              languages="typescript"
+                              [source]="sourceCodes['defaultExampleTS']"></inu-code>
+                </div>
+    
+    
+                <aside class="inu-col inu-gap-2 inu-w-20">
+                   <button (click)="addNewsInfo()"  class="inu-button info">set info news</button>
+                   <button (click)="addNewsWarn()"  class="inu-button warn">set warn news</button>
+                   <button (click)="addNewsError()" class="inu-button error">set error news</button>
+                   <button (click)="addNewsFatal()" class="inu-button fatal">set fatal news</button>
+                   <button (click)="addNews()"      class="inu-button neutral">append news</button>
+                </aside>
+            </div>
+            
+        </article>
+
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Models</h2>
+            </header>
+            <div class="content flex-1 inu-col inu-unset inu-gap-2">
+                <inu-code title="BreakingNews"
+                          languages="typescript"
+                          [source]="sourceCodes['modelBreakingNews']"></inu-code>
+
+                <inu-code title="BreakingNews"
+                          languages="typescript"
+                          [source]="sourceCodes['modelBreakingNewsLevel']"></inu-code>
+            </div>
+        </article>
+
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Properties</h2>
+            </header>
+            <div class="content flex-1 inu-col inu-unset inu-gap-2">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Type</th>
+                            <th>Default value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                        </tr>
+                        <tr>
+                            <td>events$</td>
+                            <td>Observable&lt;BreakingNews[]&gt;</td>
+                            <td>undefined</td>
+                        </tr>
+                        <tr>
+                            <td>openDuration</td>
+                            <td>number</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>showNewsDuration</td>
+                            <td>number</td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>displayDuration</td>
+                            <td>number</td>
+                            <td>10000</td>
+                        </tr>
+                        <tr>
+                            <td>defaultNewsDuration</td>
+                            <td>number</td>
+                            <td>30000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </article>
+    </div>
+</section>

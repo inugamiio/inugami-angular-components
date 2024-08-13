@@ -1,0 +1,106 @@
+<section>
+    <header>
+        <h1>Code</h1>
+    </header>
+    <div class="content" *ngIf="sourceCodes">
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Module</h2>
+            </header>
+            <div class="content flex-1 inu-col inu-unset inu-gap-2">
+                <inu-code title="AppModule"
+                          languages="typescript"
+                          [source]="sourceCodes['importModule']"></inu-code>
+
+                <inu-code title="angular.json"
+                          languages="json"
+                          [source]="sourceCodes['angularConfig']"></inu-code>
+            </div>
+        </article>
+
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Basic exemple</h2>
+            </header>
+
+
+            <div class="inu-row inu-gap-2">
+                <div class="content flex-1">
+                    <inu-code title="Default example"
+                              languages="xml"
+                              [source]="sourceCodes['defaultExample']"></inu-code>
+                </div>
+    
+    
+                <aside class="inu-col inu-gap-2 inu-w-40">
+                    <div>
+                        <inu-code title="TypeScript controller"
+                                  languages="typescript"
+                                  [source]="sourceCodes['defaultExampleTs']"></inu-code>
+                    </div>
+                    <div>
+                        <inu-code title="XML example file"
+                                  languages="xml"
+                                  [source]="xmlFile"></inu-code>
+                    </div>
+                </aside>
+            </div>
+            
+        </article>
+
+        <!--********************************************************************
+        ** 
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Properties</h2>
+            </header>
+            <div class="content flex-1 inu-col inu-unset inu-gap-2">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Type</th>
+                            <th>Default value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>collapsed</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <td>languages</td>
+                            <td>string</td>
+                            <td>plaintext</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                        </tr>
+                        <tr>
+                            <td>source</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </article>
+    </div>
+</section>
