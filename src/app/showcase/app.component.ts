@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { ResolveEnd, Router } from '@angular/router';
 import { INU_ICON } from 'inugami-components/icon';
 import { MenuLink } from 'inugami-components/models';
+import { TITLE } from './app.page.titles';
 
 @Component({
   selector: 'app-root',
@@ -81,6 +83,23 @@ export class AppComponent implements OnInit{
   // ==================================================================================================================
   // INIT
   // ==================================================================================================================
+  constructor (private router: Router) {
+    this.router.events.subscribe(val => {
+      if(val instanceof ResolveEnd){
+        let event = val as ResolveEnd;
+        console.info(`${event.urlAfterRedirects}`);
+
+        let title =TITLE[event.urlAfterRedirects];
+        if(title==null){
+          title=TITLE[''];
+        }
+
+        let titleTags= document.getElementsByTagName('title');
+        titleTags[0].innerText=title;
+      }
+    })
+}
+
   ngOnInit(): void {
     this.defineWindowSize();
   }
