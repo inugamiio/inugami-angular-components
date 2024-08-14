@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, SecurityContext } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
+import { INU_ICON } from 'dist/icon';
 import { MenuLink } from 'inugami-components/models';
 
 
@@ -10,7 +12,7 @@ import { MenuLink } from 'inugami-components/models';
     template: `
         <div [class]="getStyleclass()" *ngIf="data">
             <div class="inu-menu-link-header" (click)="navigate(data)">
-                <span *ngIf="data.icon" class="inu-menu-link-header-icon" [innerHTML]="getSafeHtml(data.icon)"></span>
+                <span *ngIf="data.icon || isSmall" class="inu-menu-link-header-icon" [innerHTML]="getSafeHtml(data.icon)"></span>
                 <span *ngIf="data.label" class="inu-menu-link-header-label" >{{data.label}}</span>
                 <span *ngIf="data.children">
                     <span class="collapsed-status"></span>
@@ -25,7 +27,7 @@ import { MenuLink } from 'inugami-components/models';
     `
 })
 
-export class MenuLinksComponent{
+export class MenuLinksComponent implements AfterViewInit{
     /**************************************************************************
     * ATTRIBUTES
     **************************************************************************/
@@ -42,19 +44,25 @@ export class MenuLinksComponent{
     public data!: MenuLink;
 
     public iconContent: SafeHtml | null = null;
-
-
+    displayType:string= 'large';
+    height : number = 1080;
     /**************************************************************************
     * CONSTRUCTOR
     **************************************************************************/
-    constructor(private sanitizer: DomSanitizer, private router: Router) { }
+    constructor(private sanitizer: DomSanitizer,
+                private router: Router,
+                private changeDetectorRef:ChangeDetectorRef) { }
+    ngAfterViewInit(): void {
+        this.defineWindowSize();
+        this.changeDetectorRef.detectChanges();
+    }
 
 
     navigate(linkData: MenuLink|undefined|null):void {
         if(!linkData){
             return;
         }
-        console.log(linkData)
+        
         if (linkData.link) {
             this.router.navigate([linkData.link]);
         }else{
@@ -69,17 +77,42 @@ export class MenuLinksComponent{
         }
     }
 
+
+    /**************************************************************************
+    * EVENTS
+    **************************************************************************/
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any) {
+      this.defineWindowSize();
+    }
+  
+    private defineWindowSize(){
+       const width = window.innerWidth;
+      
+       if(width < 600){
+          this.displayType = 'small';
+       }
+       else if(width < 1020){
+        this.displayType = 'medium';
+       }
+       else{
+        this.displayType = 'large';
+       }
+    }
+
     /**************************************************************************
     * GETTER
     **************************************************************************/
-    getSafeHtml(content: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(content);
+    getSafeHtml(content: string|undefined): SafeHtml {
+        let currentContent =  content;
+        if(this.isSmall && !currentContent){
+            currentContent = INU_ICON.puzzle;
+        }
+        return this.sanitizer.bypassSecurityTrustHtml(currentContent?currentContent:'');
     }
 
     getCollapsed(){
         let result = 'collapsed';
-
-
 
         if(this.data){
             if(this.data.collapsed==undefined || this.data.collapsed==undefined==null){
@@ -95,7 +128,7 @@ export class MenuLinksComponent{
         return 'inu-menu-link-collapsed-status '+this.getCollapsed();
     }
     getStyleclass(): string {
-        const result: string[] = ['inu-menu-links',  this.getCollapsed()];
+        const result: string[] = ['inu-menu-links', this.displayType,  this.getCollapsed()];
 
 
         for(let i=0; i<this.level; i++){
@@ -107,6 +140,12 @@ export class MenuLinksComponent{
 
         return result.join(' ');
     }
+
+    get isSmall() :boolean{
+        return this.level!=0 && this.displayType == 'small';
+    }
+
+
 
 
 

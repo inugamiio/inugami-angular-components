@@ -75,7 +75,6 @@ export class IconComponent implements OnInit{
 
     get iconContent() : SafeHtml|undefined {
         if(this.icon && this.icon!= this.previousIcon){
-            console.log('iconContent')
             this._iconContent = this.sanitizer.bypassSecurityTrustHtml(this.icon?this.icon:'');
             this.previousIcon = this.icon;
         }

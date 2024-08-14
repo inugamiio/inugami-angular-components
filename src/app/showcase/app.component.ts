@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { ResolveEnd, Router } from '@angular/router';
 import { INU_ICON } from 'inugami-components/icon';
 import { MenuLink } from 'inugami-components/models';
@@ -9,15 +9,15 @@ import { TITLE } from './app.page.titles';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements AfterViewInit, AfterViewChecked{
   // ==================================================================================================================
   // ATTRIBUTES
   // ==================================================================================================================
   title = 'inugami-angular-components';
   mainPageStyleClass : string = 'page';
   displayType : string = 'large';
-
-  
+  height : number = 1080;
+  body:HTMLElement|undefined = undefined;
   icon : any = {
     inugami : INU_ICON.inugami,
     home : INU_ICON.home
@@ -83,7 +83,9 @@ export class AppComponent implements OnInit{
   // ==================================================================================================================
   // INIT
   // ==================================================================================================================
-  constructor (private router: Router) {
+  constructor (private router: Router,
+               private changeDetectorRef:ChangeDetectorRef ) {
+    this.body =document.getElementsByTagName('body')[0];
     this.router.events.subscribe(val => {
       if(val instanceof ResolveEnd){
         let event = val as ResolveEnd;
@@ -99,17 +101,26 @@ export class AppComponent implements OnInit{
       }
     })
 }
-
-  ngOnInit(): void {
-    this.defineWindowSize();
+  ngAfterViewChecked(): void {
+    setTimeout(()=> {
+      if(this.body){
+        this.height = this.body.getBoundingClientRect().height;
+      }
+    });
+    
   }
 
 
+  ngAfterViewInit(): void {
+    this.defineWindowSize();
+    this.changeDetectorRef.detectChanges();
+  }
+
 
   
-  // ==================================================================================================================
+  // ===================================================================================================================
   // EVENTS
-  // ==================================================================================================================
+  // ===================================================================================================================
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.defineWindowSize();
@@ -117,6 +128,11 @@ export class AppComponent implements OnInit{
 
   private defineWindowSize(){
      const width = window.innerWidth;
+     
+     
+     if(this.body){
+      this.height = this.body.getBoundingClientRect().height;
+    }
 
      if(width < 600){
         this.displayType = 'small';
@@ -131,4 +147,12 @@ export class AppComponent implements OnInit{
       this.mainPageStyleClass = 'page ';
      }
   }
+
+
+  // ===================================================================================================================
+  // EVENTS
+  // ===================================================================================================================
+  get styleHeight():string{
+    return `height:${this.height}px`;
+}
 }
