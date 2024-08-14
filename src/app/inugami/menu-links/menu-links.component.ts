@@ -1,8 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { RouterTestingHarness } from '@angular/router/testing';
-import { INU_ICON } from 'dist/icon';
+import { INU_ICON } from 'inugami-components/icon';
 import { MenuLink } from 'inugami-components/models';
 
 
