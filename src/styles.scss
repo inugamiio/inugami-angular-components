@@ -76,3 +76,13 @@ table{
         
     }
 }
+
+.page{
+  font-size: 14px;
+  &.medium-display{
+    font-size: 12px;
+  }
+  &.small-display{
+    font-size: 10px;
+  }
+}
