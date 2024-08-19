@@ -13,6 +13,7 @@ import { InugamiClockModule } from 'inugami-components/clock';
 import { InugamiCodeModule } from 'inugami-components/code';
 import { InugamiIconModule } from 'inugami-components/icon';
 import { InugamiMenuLinksModule } from 'inugami-components/menu-links';
+import { InugamiSwitzerlandModule } from 'inugami-components/svg-switzerland';
 import { InugamiSvgTimelineModule } from 'inugami-components/svg-timeline';
 import { InugamiServiceModule } from 'inugami-components/service';
 //-----------
@@ -24,6 +25,8 @@ import { TimelinePage } from './views/svg/timeline/timeline.page';
 
 import { CodeView } from './views/components/code/code.view';
 import { BreakingNewsView } from './views/components/breaking-news/breaking-news.view';
+import { SwitzerlandPage } from './views/svg/switzerland/switzerland.page';
+
 
 
 
@@ -36,6 +39,7 @@ import { BreakingNewsView } from './views/components/breaking-news/breaking-news
     CodeView,
     HomePage,
     IconView,
+    SwitzerlandPage,
     TimelinePage
   ],
   imports: [
@@ -53,6 +57,7 @@ import { BreakingNewsView } from './views/components/breaking-news/breaking-news
     InugamiCodeModule,
     InugamiIconModule,
     InugamiMenuLinksModule,
+    InugamiSwitzerlandModule,
     InugamiSvgTimelineModule,
     InugamiServiceModule
 

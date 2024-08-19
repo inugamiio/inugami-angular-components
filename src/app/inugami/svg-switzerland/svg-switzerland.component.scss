@@ -1,0 +1,120 @@
+/*
+*/
+.inu-svg-switzerland{
+    ::ng-deep{
+        .inu-svg-switzerland-lakes{
+            fill: #729fcf;
+            stroke-opacity: 0;
+        }
+
+        .inu-svg-switzerland-cantons{
+            .inu-svg-switzerland-canton{
+                stroke-opacity: 0;
+                stroke: #22241c;
+                stroke-width: 4;
+                stroke-dasharray: none;
+
+                &:hover{
+                    stroke-opacity: 1;
+                }
+            }
+            .AI{
+                fill: #20603D;
+            }
+            .AG{
+                fill: #D36E70;
+            }
+            .AR{
+                fill: #00BB2D;
+            }
+            .BE{
+                fill: #4C9141;
+                
+            }
+            .BL{
+                fill: #641C34;
+                
+            }
+            .BS{
+                fill: #9C9C9C;
+            }
+            .FR{
+                fill: #343E40;
+            }
+            .GE{
+                fill: #231A24;
+            }
+            .GL{
+                fill:#C6A664 ;
+                
+            }
+            .GR{
+                fill: #6D6552;
+                
+            }
+            .JU{
+                fill: #909090;
+                
+            }
+            .LU{
+                fill: #FDF4E3;
+                
+            }
+            .NE{
+                fill: #2E3A23;
+                
+            }
+            .NW{
+                fill: #5E2129;
+                
+            }
+            .OW{
+                fill: #4E5452;
+                
+            }
+            .SG{
+                fill: #3D642D;
+                
+            }
+            .SH{
+                fill:#FF2301 ;
+                
+            }
+            .SO{
+                fill: #D6AE01;
+                
+            }
+            .SZ{
+                fill:#23282B ;
+                
+            }
+            .TG{
+                fill: #6C6874;
+                
+            }
+            .TI{
+                fill:  #59351F;
+                
+            }
+            .UR{
+                fill: #434750;
+                
+            }
+            .VD{
+                fill:  #8B8C7A;
+                
+            }
+            .VS{
+                fill: #AEA04B;
+                
+            }
+            .ZG{
+                fill:#B32821 ;
+            }
+            .ZH{
+                fill: #6C4675;
+            }
+        }
+    }
+    
+}

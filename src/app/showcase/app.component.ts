@@ -62,6 +62,11 @@ export class AppComponent implements AfterViewInit, AfterViewChecked{
         icon : INU_ICON.puzzle,
         children : [
           {
+            label: 'Switzerland',
+            link: 'svg/switzerland',
+            icon : INU_ICON.timegraph,
+          },
+          {
             label: 'Timeline',
             link: 'svg/timeline',
             icon : INU_ICON.timegraph,

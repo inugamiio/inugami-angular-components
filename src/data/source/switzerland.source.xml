@@ -1,0 +1,34 @@
+<xml>
+
+    <!--*********************************************************************** 
+    * 
+    ***********************************************************************-->
+    <src name="importModule">
+    <![CDATA[
+    import { InugamiSwitzerlandModule } from 'inugami-components/svg-switzerland';
+    
+    
+    @NgModule({
+        imports: [
+        //...
+        // Inugami Modules --------
+        InugamiSwitzerlandModule
+        ]
+    })
+    export class AppModule { }
+    ]]>
+    </src>
+    
+        <!--*********************************************************************** 
+        * 
+        ***********************************************************************-->
+        <src name="defaultExample">
+<![CDATA[
+<div style="height: 400px; width: 500px;">
+    <inu-svg-switzerland></inu-svg-switzerland>
+</div>
+]]>
+        </src>
+        
+    </xml>
+        

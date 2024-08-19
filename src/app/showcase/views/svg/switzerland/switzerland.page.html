@@ -1,0 +1,76 @@
+<section>
+    <header>
+        <h1>Switzerland</h1>
+    </header>
+    <div class="content" *ngIf="sourceCodes">
+        <!--********************************************************************
+        ** Module
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Module</h2>
+            </header>
+            <inu-code title="AppModule"
+                      languages="typescript"
+                      [source]="sourceCodes['importModule']"></inu-code>
+        </article>
+
+
+        <!--********************************************************************
+        ** Example
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Example</h2>
+            </header>
+            <div class="inu-row inu-gap-2">
+                <div class="content flex-1">
+                    <div style="height: 400px; width: 500px;">
+                        <inu-svg-switzerland></inu-svg-switzerland>
+                    </div>
+                </div>
+    
+    
+                <aside class="inu-col inu-gap-2 inu-w-40">
+                    <div>
+                        <inu-code *ngIf="sourceCodes"
+                          title="Default example"
+                          languages="xml"
+                          [source]="sourceCodes['defaultExample']"></inu-code>
+                    </div>
+                </aside>
+            </div>
+        </article>
+
+        
+        <!--********************************************************************
+        **  Properties
+        *********************************************************************-->
+        <article>
+            <header>
+                <h2>Properties</h2>
+            </header>
+            <div class="content flex-1 inu-col inu-unset inu-gap-2">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Type</th>
+                            <th>Default value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        </article>
+    </div>
+</section>

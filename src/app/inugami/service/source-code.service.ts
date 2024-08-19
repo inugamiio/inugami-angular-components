@@ -34,7 +34,6 @@ export class SourceCodeService {
         if(!response || !subscriber){
             return;
         }
-        console.log('parseSourceCodeXML', response);
 
         const result : any = {} ;
 
