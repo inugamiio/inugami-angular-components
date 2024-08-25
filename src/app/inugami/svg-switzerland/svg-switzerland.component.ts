@@ -1,23 +1,44 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
+import { InuSwitzerlandModel, InuSwitzerlandStyleGenerator } from 'inugami-components/models';
 import { ComponentUtils, SVG_BUILDER, SVG_MATH, SVG_TRANSFORM } from 'inugami-components/utils';
 
 
+const SELECTED = 'selected';
 
 @Component({
     selector: 'inu-svg-switzerland',
     styleUrls: ['./svg-switzerland.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: InuSwitzerlandComponent,
+            multi: true
+        },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: InuSwitzerlandComponent,
+            multi: true
+        }
+    ],
     template: `
         <div [class]="_styleClass" #component>
             <svg #container xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
     `
 })
-export class InuSwitzerlandComponent implements AfterViewInit {
+export class InuSwitzerlandComponent implements AfterViewInit, ControlValueAccessor, Validator{
     //==================================================================================================================
     // ATTRIBUTES
     //==================================================================================================================
     @Input() styleClass: string | undefined = undefined;
+    @Input() data: InuSwitzerlandModel<any>[] = [];
+    @Input() styleGenerator: InuSwitzerlandStyleGenerator = ()=> undefined;
 
+    @Output() onSelected  :EventEmitter<InuSwitzerlandModel<any>> = new EventEmitter();
+    @Output() onDeselected  :EventEmitter<InuSwitzerlandModel<any>> = new EventEmitter();
+    @Output() onChanged  :EventEmitter<InuSwitzerlandModel<any>[]> = new EventEmitter();
+    
     //--------------------------------------------------------------------------
     @ViewChild('component')
     private component: ElementRef | undefined | null = null;
@@ -29,10 +50,16 @@ export class InuSwitzerlandComponent implements AfterViewInit {
     public height: number = 600;
     public width: number = 200;
 
+    
+    public disabled:boolean = false;
+    private onChange = (value:any) => {};
+    private onTouched = (value:any) => {};
+
     //--- SVG components
     private locator: SVGElement | null = null;
     private canvas: SVGElement | null = null;
     private graph: SVGElement | null = null;
+    private cantons:any = {};
 
     //==================================================================================================================
     // INIT
@@ -48,6 +75,38 @@ export class InuSwitzerlandComponent implements AfterViewInit {
 
             this.resize();
         }
+    }
+
+    updateValues(){
+        if (!this.data){
+            return;
+        }
+
+        for(let item of this.data){
+            this.updateItem(item);
+        }
+    }
+
+    private updateItem(item : InuSwitzerlandModel<any>){
+        const canton = this.getCanton(item.canton);
+        if(!canton){
+            return;
+        }
+
+        if(item.selected){
+            SVG_TRANSFORM.addClass(canton,SELECTED);
+        }else{
+            console.log('updateItem')
+            SVG_TRANSFORM.removeClass(canton,SELECTED);
+        }
+
+        if(this.styleGenerator){
+            const style = this.styleGenerator(item);
+            if(style){
+                canton.setAttribute('style',style);
+            }
+        }
+
     }
 
 
@@ -68,6 +127,7 @@ export class InuSwitzerlandComponent implements AfterViewInit {
             this.renderCantons(this.graph);
         }
 
+        this.updateValues();
     }
 
     renderLakes(parent: SVGElement) {
@@ -311,10 +371,17 @@ export class InuSwitzerlandComponent implements AfterViewInit {
     renderCanton(parent: SVGElement | null, canton:string, curve: string): SVGElement | null {
         const result = this.renderCurve(parent,curve);
     
-            if (result) {
-                SVG_TRANSFORM.addClass(result, `inu-svg-switzerland-canton ${canton}`);
-            }
-            return result;
+        if (result) {
+            SVG_TRANSFORM.addClass(result, `inu-svg-switzerland-canton ${canton}`);
+        }
+
+        if(result){
+            result.onclick = (mouseEvent) => this.onClick(canton,result,mouseEvent);
+            result.ondblclick = (mouseEvent) => this.ondblclick(canton,result,mouseEvent);
+            this.cantons[canton]=result;
+        }
+        
+        return result;
     }
 
     //==================================================================================================================
@@ -346,11 +413,114 @@ export class InuSwitzerlandComponent implements AfterViewInit {
         }
     }
 
+
+
+    //==================================================================================================================
+    // EVENT
+    //==================================================================================================================
+    onClick(canton:string, node:SVGElement, event:MouseEvent){
+      event.preventDefault();
+      event.stopPropagation();
+      let cantonFound : InuSwitzerlandModel<any> |undefined = this.searchCantonModel(canton);
+     
+      if(cantonFound){
+        cantonFound.selected = true;
+      }else{
+        cantonFound = {
+            canton : canton,
+            selected : true
+        };
+        this.data.push(cantonFound);
+      }
+
+      this.updateValues();
+      this.onSelected.emit(cantonFound);
+      this.sendOnChange();
+      
+    }
+
+    ondblclick(canton:string, node:SVGElement, event:MouseEvent){
+        event.preventDefault();
+        event.stopPropagation();
+        let cantonFound : InuSwitzerlandModel<any> |undefined = this.searchCantonModel(canton);
+        if(cantonFound){
+            cantonFound.selected=false;
+            this.updateValues();
+            this.onDeselected.emit(cantonFound);
+            this.sendOnChange();
+        }
+    }
+    sendOnChange(){
+        const currentData : InuSwitzerlandModel<any>[]=[];
+        for(let iCanton of this.data){
+            if(iCanton.selected){
+                currentData.push(iCanton);
+            }
+        }
+        this.onChanged.emit(currentData);
+        this.onChange(currentData);
+    }
+
+    searchCantonModel(canton:string):InuSwitzerlandModel<any> |undefined {
+        if(!this.data){
+            return undefined;
+        }
+        for(let iCanton of this.data){
+            if(iCanton.canton ==canton ){
+                return  iCanton
+            }
+        }
+        return undefined;
+    }
+    //==================================================================================================================
+    // ControlValueAccessor
+    //==================================================================================================================
+    writeValue(obj: any): void {
+       if(obj == undefined || obj == null){
+         this.data = [];
+       }
+       else if(Array.isArray(obj)){
+        this.data.splice(0,this.data.length-1);
+        this.data.push(...obj);
+       }else{
+        this.data.splice(0,this.data.length-1);
+        this.data.push(obj);
+       }
+       this.updateValues();
+    }
+
+    registerOnChange(fn: any): void {
+       this.onChange = fn;
+    }
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
+    setDisabledState?(isDisabled: boolean): void {
+       this.disabled = isDisabled;
+    }
+
+    //==================================================================================================================
+    // Validator
+    //==================================================================================================================
+    validate(control: AbstractControl<any, any>): ValidationErrors | null {
+        return null;
+    }
+    registerOnValidatorChange?(fn: () => void): void {
+
+    }
+
+
+
     //==================================================================================================================
     // GETTERS
     //==================================================================================================================
     get _styleClass(): string {
         return ComponentUtils.generateStyleclass('inu-svg-switzerland', this.styleClass);
+    }
+
+    getCanton(cantonCode:string) : SVGElement|undefined{
+        const result = this.cantons[cantonCode];
+        return result? result as SVGElement: undefined;
     }
 
 

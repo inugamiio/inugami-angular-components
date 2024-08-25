@@ -25,9 +25,14 @@
             </header>
             <div class="inu-row inu-gap-2">
                 <div class="content flex-1">
-                    <div style="height: 400px; width: 500px;">
-                        <inu-svg-switzerland></inu-svg-switzerland>
-                    </div>
+                    <form [formGroup]="form">
+                        <div style="height: 400px; width: 500px;">
+                                <inu-svg-switzerland formControlName="cantons"
+                                                    (onSelected)="onSelected($event)"
+                                                    (onDeselected)="onDeselected($event)"
+                                                    (onChanged)="onChanged($event)"></inu-svg-switzerland>    
+                        </div>
+                    </form>
                 </div>
     
     
@@ -37,6 +42,27 @@
                           title="Default example"
                           languages="xml"
                           [source]="sourceCodes['defaultExample']"></inu-code>
+                    </div>
+
+                    <div>
+                        <inu-code *ngIf="selected"
+                          title="onSelected"
+                          languages="javascript"
+                          [source]="selected"></inu-code>
+                    </div>
+
+                    <div>
+                        <inu-code *ngIf="deselected"
+                          title="onDeselected"
+                          languages="javascript"
+                          [source]="deselected"></inu-code>
+                    </div>
+
+                    <div>
+                        <inu-code *ngIf="change"
+                          title="onChanged"
+                          languages="javascript"
+                          [source]="change"></inu-code>
                     </div>
                 </aside>
             </div>

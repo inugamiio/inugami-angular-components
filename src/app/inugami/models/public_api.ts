@@ -6,4 +6,5 @@ export * from './select-item.model';
 export * from './svg-options.model';
 export * from './svg-service.model';
 export * from './svg.models';
+export * from './svg-switzerland.model';
 export * from './timeline.model';

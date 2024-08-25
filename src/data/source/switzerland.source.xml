@@ -24,9 +24,11 @@
         ***********************************************************************-->
         <src name="defaultExample">
 <![CDATA[
-<div style="height: 400px; width: 500px;">
-    <inu-svg-switzerland></inu-svg-switzerland>
-</div>
+<form [formGroup]="form">
+    <div style="height: 400px; width: 500px;">
+            <inu-svg-switzerland formControlName="cantons"></inu-svg-switzerland>    
+    </div>
+</form>
 ]]>
         </src>
         

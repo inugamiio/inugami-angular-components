@@ -14,6 +14,10 @@
                 stroke-width: 4;
                 stroke-dasharray: none;
 
+                &.selected{
+                    stroke: #dfdfdf;
+                    stroke-opacity: 1;
+                }
                 &:hover{
                     stroke-opacity: 1;
                 }

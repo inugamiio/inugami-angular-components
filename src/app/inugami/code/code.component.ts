@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { INU_ICON } from 'inugami-components/icon';
 import { ComponentUtils } from 'inugami-components/utils';
@@ -34,7 +34,7 @@ const DEFAULT_TIME_FORMAT = "YYYY-MM-DD HH:mm";
         </div>
     `
 })
-export class InuCodeComponent implements OnInit {
+export class InuCodeComponent implements OnInit, OnChanges {
     //==================================================================================================================
     // ATTRIBUTES
     //==================================================================================================================
@@ -54,6 +54,14 @@ export class InuCodeComponent implements OnInit {
     //==================================================================================================================
     constructor(private sanitizer: DomSanitizer, 
         private changeDetectorRef:ChangeDetectorRef) { }
+    
+    ngOnChanges(changes: any): void {
+        if(changes['source'] && changes['source']['currentValue'] ){
+            this.sourceCode =  changes['source']['currentValue'];
+        }else{
+            this.sourceCode = '';
+        }
+    }
 
 
     ngOnInit() {
