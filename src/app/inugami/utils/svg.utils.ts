@@ -18,7 +18,9 @@ import {
     TransformationInfo,
     Dimension,
     Position,
-    SvgStyle } from 'inugami-components/models';
+    SvgStyle,
+    SvgColor
+} from 'inugami-components/models';
 export const DEFAULT_FONT_SIZE = 12;
 export const TWO_PI = 2 * Math.PI;
 export const TWO_PI_RATIO = (2 * Math.PI) / 360;
@@ -43,7 +45,7 @@ export const SVG_CONST: any = {
     DATETIME_YEAR: 60000 * 1440 * 365,
     MINUTE: 60000,
     NB_MINUTES_PER_DAY: 1440,
-    NANO_TO_MILLIS : 1000000
+    NANO_TO_MILLIS: 1000000
 };
 
 
@@ -93,6 +95,7 @@ export const SVG_MATH: SvgMath = {
 
     size: (node: SVGElement | HTMLElement): Size => {
         const info = node.getBoundingClientRect();
+        console.log('info', info)
         return {
             bottom: info.bottom,
             width: info.width,
@@ -163,7 +166,7 @@ export const SVG_MATH: SvgMath = {
         }
     },
 
-    nowNano : ()=>{
+    nowNano: () => {
         return performance.now() + performance.timeOrigin;
     }
 }
@@ -272,8 +275,8 @@ export const SVG_BUILDER: SvgBuilder = {
             let result = SVG_BUILDER.createNode('cirellipsecle', parent, currentOption);
 
             if (result) {
-                result.setAttribute("rx", ''+dimention.width);
-                result.setAttribute("ry", ''+dimention.height);
+                result.setAttribute("rx", '' + dimention.width);
+                result.setAttribute("ry", '' + dimention.height);
                 result.setAttribute("cx", '' + 0);
                 result.setAttribute("cy", '' + 0);
                 return result;
@@ -331,6 +334,23 @@ export const SVG_BUILDER: SvgBuilder = {
 
 
         return result;
+    },
+    createPath: function (path: string, parent: SVGElement, option?: SvgOptionalOption): SVGElement | null {
+        if (!parent) {
+            return null;
+        }
+        const currentOption = option == undefined || option == null ? {} : option;
+        const result = SVG_BUILDER.createNode('path', parent, option);
+
+        if (result) {
+            result.setAttribute('d', path);
+            if (currentOption.styleClass) {
+                result.setAttribute("class", currentOption.styleClass);
+            }
+            return result;
+        } else {
+            return null;
+        }
     }
 }
 
@@ -420,7 +440,7 @@ export const SVG_TRANSFORM: SvgTransform = {
     // ========================================================================
     // extractTransformInformation
     // ========================================================================
-    extractTransformInformation: (node: SVGElement|HTMLElement): TransformationInfo => {
+    extractTransformInformation: (node: SVGElement | HTMLElement): TransformationInfo => {
         const attrTransfo = node.getAttribute("transform");
 
         let x = null;
@@ -511,8 +531,12 @@ export const SVG_TRANSFORM: SvgTransform = {
         const containerSize = SVG.MATH.size(svgContainer);
         let pos = SVG.MATH.size(compo);
 
-        const diffSizeX = containerSize.width / pos.width;
-        const diffSizeY = containerSize.height / pos.height;
+        if (pos.width == 0 && pos.height == 0) {
+            return 1;
+        }
+
+        const diffSizeX = containerSize.width / (pos.width == 0 ? 1 : pos.width);
+        const diffSizeY = containerSize.height / (pos.height == 0 ? 1 : pos.height);
         const sizeRatio = diffSizeY < diffSizeX ? diffSizeY : diffSizeX;
 
         SVG.TRANSFORM.scale(compo, sizeRatio, sizeRatio);
@@ -538,7 +562,7 @@ export const SVG_TRANSFORM: SvgTransform = {
     // ========================================================================
     // TOOLS
     // ========================================================================
-    toogleClass: (node: SVGElement|HTMLElement, styleclass: string): void => {
+    toogleClass: (node: SVGElement | HTMLElement, styleclass: string): void => {
         if (!node) {
             return;
         }
@@ -553,7 +577,7 @@ export const SVG_TRANSFORM: SvgTransform = {
             node.setAttribute('class', styleclass);
         }
     },
-    removeClass: (node:  SVGElement|HTMLElement, styleclass: string): void => {
+    removeClass: (node: SVGElement | HTMLElement, styleclass: string): void => {
         if (!node) {
             return;
         }
@@ -564,7 +588,7 @@ export const SVG_TRANSFORM: SvgTransform = {
             }
         }
     },
-    addClass: (node:  SVGElement|HTMLElement, styleclass: string): void => {
+    addClass: (node: SVGElement | HTMLElement, styleclass: string): void => {
         if (!node) {
             return;
         }
@@ -577,7 +601,7 @@ export const SVG_TRANSFORM: SvgTransform = {
             node.setAttribute('class', styleclass);
         }
     },
-    hasClass: (node:  SVGElement|HTMLElement, styleclass: string): boolean => {
+    hasClass: (node: SVGElement | HTMLElement, styleclass: string): boolean => {
         if (!node) {
             return false;
         }
@@ -590,7 +614,7 @@ export const SVG_TRANSFORM: SvgTransform = {
 // SVG STYLE GENERATOR
 //#############################################################################
 export const SVG_STYLE_GENERATOR: SvgStyleGenerators = {
-    BY_TYPE: (value:number, maxValue:number, minValue:number, type:string): SvgStyle =>{
+    BY_TYPE: (value: number, maxValue: number, minValue: number, type: string): SvgStyle => {
         return {
             style: type
         }
@@ -600,81 +624,108 @@ export const SVG_STYLE_GENERATOR: SvgStyleGenerators = {
 //#############################################################################
 // SVG ANIMATION
 //#############################################################################
-export const SVG_ANIMATION : SvgAnimations = {
-    TYPES : {
-        linear:(time:number): number => time,
-        parabolic : (time:number): number => -(4*Math.pow(time, 2)) + (4*time),
-        easeOutCubic : (time:number) => Math.pow(time-1, 3) + 1,
-        easeInCubic : (time:number) => Math.pow(time, 3),
-        easeInQuad : (time:number) => time*time,
-        easeOutQuad : (time:number) => time*(2-time),
+export const SVG_ANIMATION: SvgAnimations = {
+    TYPES: {
+        linear: (time: number): number => time,
+        parabolic: (time: number): number => -(4 * Math.pow(time, 2)) + (4 * time),
+        easeOutCubic: (time: number) => Math.pow(time - 1, 3) + 1,
+        easeInCubic: (time: number) => Math.pow(time, 3),
+        easeInQuad: (time: number) => time * time,
+        easeOutQuad: (time: number) => time * (2 - time),
     },
-    animate : (callback:SvgAnimationCallback, option?:SvgAnimationOption):void=>{
+    animate: (callback: SvgAnimationCallback, option?: SvgAnimationOption): void => {
 
-        const currentOption:SvgAnimationOption = option?option:{};
-        const duration = (currentOption.duration ? currentOption.duration:250);
+        const currentOption: SvgAnimationOption = option ? option : {};
+        const duration = (currentOption.duration ? currentOption.duration : 250);
         const now = new Date().getTime();
 
-        const params : SvgAnimationParameters = {
-            timer       : currentOption.timer?currentOption.timer: SVG_ANIMATION.TYPES.linear,
-            delay       : currentOption.delay?currentOption.delay:0,
-            duration    : (now+duration)-now,
-            startTime   : now,
-            ttl         : now+duration,
-            callback    : callback,
-            onDone      : currentOption.onDone
+        const params: SvgAnimationParameters = {
+            timer: currentOption.timer ? currentOption.timer : SVG_ANIMATION.TYPES.linear,
+            delay: currentOption.delay ? currentOption.delay : 0,
+            duration: (now + duration) - now,
+            startTime: now,
+            ttl: now + duration,
+            callback: callback,
+            onDone: currentOption.onDone
         }
 
-        
 
-        if(params.delay>0){
-            setTimeout(()=>{
+
+        if (params.delay > 0) {
+            setTimeout(() => {
                 const now = new Date().getTime();
-                params.startTime   = now;
-                params.ttl         = now+duration;
+                params.startTime = now;
+                params.ttl = now + duration;
                 new AnimationHandler(params).run();
-            },currentOption.delay);
-        }else{
+            }, currentOption.delay);
+        } else {
             new AnimationHandler(params).run();
         }
     }
 }
 
-class AnimationHandler{
-    
-    private animeId :number|null= null;
+class AnimationHandler {
 
-    constructor(private parameters: SvgAnimationParameters) {  
+    private animeId: number | null = null;
+
+    constructor(private parameters: SvgAnimationParameters) {
     }
 
-    public run(){
+    public run() {
         let duration = this.parameters.duration;
-        let initialTimestamp= window.performance.now();
-        let timestamp=0;
+        let initialTimestamp = window.performance.now();
+        let timestamp = 0;
 
         const frame = () => {
-            timestamp= window.performance.now()- initialTimestamp;
-            const progress = timestamp/duration
-            if (progress >=1) {
+            timestamp = window.performance.now() - initialTimestamp;
+            const progress = timestamp / duration
+            if (progress >= 1) {
                 this.parameters.callback(this.parameters.timer(1));
-                if(this.parameters.onDone){
+                if (this.parameters.onDone) {
                     this.parameters.onDone();
                 }
-                if(this.animeId){
+                if (this.animeId) {
                     cancelAnimationFrame(this.animeId);
                 }
-                    
+
                 this.animeId = null;
                 return;
             }
             this.parameters.callback(this.parameters.timer(progress));
-           
+
             this.animeId = requestAnimationFrame(frame);
         }
 
         this.animeId = requestAnimationFrame(frame);
     }
-  
+
+}
+
+export const SVG_COLOR: SvgColor = {
+    blue: function (value: number, minValue: number, maxValue: number): string {
+        const minColor = [142, 172, 218];
+        const maxColor = [14, 32, 59];
+
+
+
+        let currentValue: number | undefined = undefined;
+        if (value < minValue) {
+            currentValue = minValue;
+        } else if (value > maxValue) {
+            currentValue = maxValue;
+        } else {
+            currentValue = value;
+        }
+
+        const delta = maxValue - minValue;
+        const percent = (value - minValue) / delta;
+
+        let red = minColor[0] - ((minColor[0] - maxColor[0]) * percent);
+        let green = minColor[1] - ((minColor[1] - maxColor[1]) * percent);
+        let blue = minColor[2] - ((minColor[2] - maxColor[2]) * percent);
+
+        return `fill :rgb(${red}, ${green}, ${blue})`;
+    }
 }
 
 //#############################################################################
@@ -685,6 +736,7 @@ export const SVG = {
     MATH: SVG_MATH,
     BUILDER: SVG_BUILDER,
     TRANSFORM: SVG_TRANSFORM,
-    STYLE : SVG_STYLE_GENERATOR,
-    ANIMATION:SVG_ANIMATION
+    STYLE: SVG_STYLE_GENERATOR,
+    ANIMATION: SVG_ANIMATION,
+    COLOR: SVG_COLOR
 }

@@ -7,6 +7,7 @@ import { HomePage } from './views/home/home.page';
 import { IconView } from './views/icons/icons.view';
 import { SwitzerlandPage } from './views/svg/switzerland/switzerland.page';
 import { TimelinePage } from './views/svg/timeline/timeline.page';
+import { BuildingPage } from './views/svg/building/building.page';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'components/code', component: CodeView },
 
 
+  
+  { path: 'svg/building', component: BuildingPage },
   { path: 'svg/switzerland', component: SwitzerlandPage },
   { path: 'svg/timeline', component: TimelinePage },
   { path: "", component: HomePage },

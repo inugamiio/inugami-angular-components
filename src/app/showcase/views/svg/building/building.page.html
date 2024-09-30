@@ -1,8 +1,8 @@
 <section>
     <header>
-        <h1>Switzerland</h1>
+        <h1>Building</h1>
     </header>
-    <div class="content" *ngIf="sourceCodes">
+    <div class="content" >
         <!--********************************************************************
         ** Module
         *********************************************************************-->
@@ -10,16 +10,14 @@
             <header>
                 <h2>Module</h2>
             </header>
-            <inu-code title="AppModule"
-                      languages="typescript"
-                      [source]="sourceCodes['importModule']"></inu-code>
+            
         </article>
 
 
         <!--********************************************************************
         ** Example
         *********************************************************************-->
-        <article>
+        <article *ngIf="form">
             <header>
                 <h2>Example</h2>
             </header>
@@ -27,44 +25,16 @@
                 <div class="content flex-1">
                     <form [formGroup]="form">
                         <div style="height: 400px; width: 500px;">
-                                <inu-svg-switzerland formControlName="cantons"
-                                                    [styleGenerator]="styleGenerator"
-                                                    (onClicked)="onClicked($event)"
-                                                    (onSelected)="onSelected($event)"
-                                                    (onDeselected)="onDeselected($event)"
-                                                    (onChanged)="onChanged($event)"></inu-svg-switzerland>    
+                            <inu-svg-building formControlName="building"></inu-svg-building>
                         </div>
                     </form>
+                   
                 </div>
     
     
                 <aside class="inu-col inu-gap-2 inu-w-40">
                     <div>
-                        <inu-code *ngIf="sourceCodes"
-                          title="Default example"
-                          languages="xml"
-                          [source]="sourceCodes['defaultExample']"></inu-code>
-                    </div>
-
-                    <div>
-                        <inu-code *ngIf="selected"
-                          title="onSelected"
-                          languages="javascript"
-                          [source]="selected"></inu-code>
-                    </div>
-
-                    <div>
-                        <inu-code *ngIf="deselected"
-                          title="onDeselected"
-                          languages="javascript"
-                          [source]="deselected"></inu-code>
-                    </div>
-
-                    <div>
-                        <inu-code *ngIf="change"
-                          title="onChanged"
-                          languages="javascript"
-                          [source]="change"></inu-code>
+                      
                     </div>
                 </aside>
             </div>

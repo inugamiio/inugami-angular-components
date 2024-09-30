@@ -24,6 +24,7 @@ export interface SvgBuilder {
     createGroup : (parent: SVGElement|HTMLElement|null, option?: SvgOptionalOption)=> SVGElement|null;
     createText : (label:string, parent: SVGElement, option?: SvgOptionalOption)=> SVGElement|null;
     createLine : (vector:Vector, parent: SVGElement, option?: SvgOptionalOption)=> SVGElement|null;
+    createPath : (path:string, parent: SVGElement, option?: SvgOptionalOption)=> SVGElement|null;
     createRect : (parent: SVGElement, option?: RectOption)=> SVGElement|null ;
     createCircle : (parent: SVGElement, option?: CircleOption)=> SVGElement|null ;
     ellipse: (layer: SVGElement, option?: CircleOption)=>SVGElement|null ;
@@ -60,4 +61,8 @@ export interface SvgAnimations {
         easeOutQuad:SvgTimerGenerator
     },
     animate: (callback:SvgAnimationCallback, option?:SvgAnimationOption)=> void
+}
+
+export interface SvgColor {
+    blue: (value : number, minValue: number, maxValue:number) => string;
 }
